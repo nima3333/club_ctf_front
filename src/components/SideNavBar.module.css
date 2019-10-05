@@ -1,5 +1,6 @@
 .bbb {
-  height: 100vh;
+  display: flex;
+  min-height: 100vh;
 }
 
 .main_logo{

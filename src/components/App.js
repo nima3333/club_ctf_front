@@ -4,8 +4,8 @@ import React, {Component} from 'react';
 import NavBars from './TopNavBar'
 import SideNavBar from './SideNavBar'
 import Dashboard from "./Dashboard"
-import Hall_of_fame from "./Hall_of_fame"
-import Hall_of_shame from "./Hall_of_shame"
+import HallOfFame from "./HallOfFame"
+import HallOfShame from "./HallOfShame"
 import Events from "./Events"
 import Wiki from "./Wiki"
 import {Route, Switch} from 'react-router-dom';
@@ -39,16 +39,14 @@ class App extends Component {
             <NavBars />
             <div className={styles.box}>
               <SideNavBar />
-              <div>
               <Switch>
                 <Route path="/" exact component={Dashboard} />
                 <Route path="/dashboard" component={Dashboard} />
-                <Route path="/hall_fame" component={Hall_of_fame} />
-                <Route path="/hall_shame" component={Hall_of_shame} />
+                <Route path="/hall_fame" component={HallOfFame} />
+                <Route path="/hall_shame" component={HallOfShame} />
                 <Route path="/events" component={Events} />
                 <Route path="/wiki" component={Wiki} />
               </Switch>
-              </div>
             </div>
             
           </div>          

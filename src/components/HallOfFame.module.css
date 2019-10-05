@@ -1,0 +1,12 @@
+.center_wrapper{
+    text-align: center;
+}
+
+.center{
+    display: inline-block;
+}
+
+.full_width{
+    width: 100%;
+    padding: 40px;
+}
