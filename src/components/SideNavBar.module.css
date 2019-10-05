@@ -1,0 +1,41 @@
+.bbb {
+  height: 100vh;
+}
+
+.main_logo{
+  margin: 0;
+  padding: 0;
+}
+
+.cercle {
+  width: 40px;
+  height: 40px;
+  border-radius: 30px;
+  background: green;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.icon{
+  padding: 0.3em 0.6em;
+  display: inline-block;
+  border-radius: 50px;
+  box-shadow: 0px 0px 2px #888;
+  width: 50px;
+  height: 50px;
+  font-family: hacked !important;
+  font-size:24px;
+  background-color: #282F3C;
+}
+
+.test{
+  width: 100%;
+  filter: invert(100%);
+
+}
+
+.active{
+
+}
