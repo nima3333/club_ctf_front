@@ -1,16 +1,16 @@
 import styles from './App.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import React, {Component} from 'react';
-import TopNavBar from './TopNavBar'
-import SideNavBar from './SideNavBar'
-import Dashboard from "./Dashboard"
-import HallOfFame from "./HallOfFame"
-import HallOfShame from "./HallOfShame"
-import Events from "./Events"
-import Wiki from "./Wiki"
+import React, {Component, Suspense} from 'react';
 import {Route, Switch} from 'react-router-dom';
-import SignIn from '../auth/SignIn'
-import Public from './publicPage'
+const SideNavBar = React.lazy(() => import( './SideNavBar'));
+const Dashboard = React.lazy(() => import( "./Dashboard"));
+const HallOfFame = React.lazy(() => import( "./HallOfFame"));
+const HallOfShame = React.lazy(() => import( "./HallOfShame"));
+const Events = React.lazy(() => import( "./Events"));
+const Wiki = React.lazy(() => import( "./Wiki"));
+const SignIn = React.lazy(() => import('../auth/SignIn'));
+const Public = React.lazy(() => import('./publicPage'));
+const TopNavBar = React.lazy(() => import('./TopNavBar'));
 
 class App extends Component {
   state = {
@@ -36,24 +36,31 @@ class App extends Component {
     if (this.state.isAuthenticated){
       return (
           <div className={`App ${styles.aaa}`}>
-            <TopNavBar signOut={this.signout}/>
+              <Suspense fallback={<div>Chargement...</div>}>
+                <TopNavBar signOut={this.signout}/>
+              </Suspense>
             <div className={styles.box}>
-              <SideNavBar />
-              <Switch>
-                <Route path="/" exact component={Dashboard} />
-                <Route path="/dashboard" component={Dashboard} />
-                <Route path="/hall_fame" component={HallOfFame} />
-                <Route path="/hall_shame" component={HallOfShame} />
-                <Route path="/events" component={Events} />
-                <Route path="/wiki" component={Wiki} />
-              </Switch>
+              <Suspense fallback={<div>Chargement...</div>}>
+                <SideNavBar />
+              </Suspense>
+              <Suspense fallback={<div>Chargement...</div>}>
+                <Switch>
+                  <Route path="/" exact component={Dashboard} />
+                  <Route path="/dashboard" component={Dashboard} />
+                  <Route path="/hall_fame" component={HallOfFame} />
+                  <Route path="/hall_shame" component={HallOfShame} />
+                  <Route path="/events" component={Events} />
+                  <Route path="/wiki" component={Wiki} />
+                </Switch>
+              </Suspense>
             </div>
-            
           </div>          
       )}
     else{
       return(
-        <Public authenticate = {this.authenticate}/>
+        <Suspense fallback={<div>Chargement...</div>}>
+          <Public authenticate = {this.authenticate}/>
+        </Suspense>
       )
     }
   }
