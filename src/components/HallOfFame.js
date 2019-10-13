@@ -2,13 +2,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import React, {Component} from 'react';
 import {Table} from 'react-bootstrap'
 import styles from './HallOfFame.module.css'
+import Loading from '../misc/Loading'
 
 class HallOfFame extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      data: null,
+      data: <Loading/>,
     };
   }
 

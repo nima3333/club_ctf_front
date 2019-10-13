@@ -3,6 +3,7 @@ import styles from './TopNavBar.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, {Component} from 'react';
 import ReactBootstrap, {Navbar, NavItem, Nav} from 'react-bootstrap'
+import Dropdown from '../misc/DropdownIcon'
 import { NavLink } from 'react-router-dom';
 import hacker from '../logos/hacker.jpg'
 const navbar = {backgroundColor: '#282F3C'};
@@ -20,7 +21,7 @@ class NavBars extends Component {
                 src={logo}
                 width="40"
                 height="40"
-                className={`d-inline-block align-top ${styles.main_logo} ${styles.image}`}
+                className={`d-inline-block align-top ${styles.main_logo_img} ${styles.image}`}
                 alt="React Bootstrap logo"
               /></NavLink>
             </NavItem>
@@ -47,7 +48,7 @@ class NavBars extends Component {
               </Nav>
 
               <Nav>
-                
+                <Dropdown signOut={this.props.signOut}/>
               </Nav>
 
             </Navbar.Collapse>

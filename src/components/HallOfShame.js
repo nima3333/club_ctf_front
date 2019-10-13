@@ -2,18 +2,24 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import React, {Component} from 'react';
 import ReactBootstrap, {Jumbotron} from 'react-bootstrap'
 import styles from './HallOfShame.module.css'
+import Loading from '../misc/Loading'
+
+function sleep (time) {
+  return new Promise((resolve) => setTimeout(resolve, time));
+}
 
 class HallOfShame extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      data: null,
+      data: <Loading/>,
     };
   }
 
   componentDidMount(){
-    fetch('https://jsonplaceholder.typicode.com/posts')
+    sleep(500).then(() => {
+      fetch('https://jsonplaceholder.typicode.com/posts')
       .then(response => response.json())
       .then(json => this.setState({
         data : json.map(item => {
@@ -26,7 +32,9 @@ class HallOfShame extends Component {
           )
         })
       }));
-  }
+  })
+}
+    
 
   render() {
       return (

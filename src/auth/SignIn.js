@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import logo from '../logos/logo.png'
+import styles from './SignIn.module.css'
 
 class SignIn extends Component {
   state = {
@@ -16,7 +18,14 @@ class SignIn extends Component {
   }
   render() {
     return (
-      <div className="container">
+      <div className="signIn" className={styles.signIn}>
+        <img
+          src={logo}
+          width="300"
+          height="300"
+          className={styles.image}
+          alt="React Bootstrap logo"
+        />
         <form className="white" onSubmit={this.handleSubmit}>
           <h5 className="grey-text text-darken-3">Sign In</h5>
           <div className="input-field">

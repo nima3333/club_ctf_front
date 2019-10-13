@@ -1,7 +1,7 @@
 import styles from './App.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, {Component} from 'react';
-import NavBars from './TopNavBar'
+import TopNavBar from './TopNavBar'
 import SideNavBar from './SideNavBar'
 import Dashboard from "./Dashboard"
 import HallOfFame from "./HallOfFame"
@@ -25,18 +25,18 @@ class App extends Component {
     //setTimeout(cb, 100)
   }
 
-  signout(cb) {
+  signout= () => {
     this.setState({
       isAuthenticated: false
     })    
-    setTimeout(cb, 100)
+    //setTimeout(cb, 100)
   }
 
   render() {
     if (this.state.isAuthenticated){
       return (
           <div className={`App ${styles.aaa}`}>
-            <NavBars />
+            <TopNavBar signOut={this.signout}/>
             <div className={styles.box}>
               <SideNavBar />
               <Switch>
