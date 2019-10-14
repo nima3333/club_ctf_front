@@ -1,0 +1,41 @@
+@font-face {
+    font-family: "hacked";
+    src: local('hacked'), url("../fonts/hacked-webfont.woff") format("woff");
+    }  
+
+.fheader{
+    width: 100%;
+    background-color: black;
+    height: 20vh;
+    text-align: center;
+    display:flex; 
+    margin-left: auto;
+    margin-right: auto;
+    border-bottom-width:2px;
+    border-bottom-color:White;
+    border-bottom-style: solid;
+}
+
+.logo{
+    filter: invert(100%);
+    display: block;
+    max-height: 100%;
+}
+
+.around_text{
+    font-family: hacked;
+    color: white;
+    margin-top: auto;
+    margin-bottom: auto;
+    font-size: 13vh;
+}
+
+.text_left{
+    margin-left: auto;
+    margin-right: 20px;
+}
+
+.text_right{
+    margin-left: 20px;
+    margin-right: auto;
+}
