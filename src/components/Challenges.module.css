@@ -1,0 +1,148 @@
+.main_div {
+    padding-top: 30px;
+    padding-left: 5px;
+    width: 100%;
+    font-size: 25px;
+}
+
+.main_flex {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.col1 {
+    display: flex;
+    flex-direction: column;
+    min-width: 410px;
+    width: 40%;
+}
+
+.chall_row {
+    padding-left: 20px;
+    padding-bottom: 40px;
+}
+
+.chall_row_flex {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background-color: white;
+}
+
+.chall_blue_block {
+    background: blue;
+    height: 80px;
+    width: 80px;
+}
+
+.chall_text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.chall_points_colored {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    background-color: green;
+}
+
+.chall_points_white {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    width: 80%;
+    height: 80%;
+    border-radius: 50%;
+    background-color: white;
+}
+
+.col2 {
+    padding-bottom: 20px;
+    display: block;
+    min-width: 410px;
+    width: 40%;
+}
+
+.col2_flex {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.title {
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 20px;
+}
+
+.diff {
+    padding-right: 15px;
+    padding-left: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.diff_bar_white {
+    border: 2px solid black;
+    background-color: white;
+    width: 70%;
+    height: 100%;
+}
+
+.diff_bar {
+    border: 1px solid black;
+    height: 100%;
+}
+
+.updates {
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.update {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+.update_image {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    background: blue;
+}
+
+.update_content {
+    display: flex;
+    flex-direction: column;
+    padding-left: 5px;
+}
+
+.update_time {
+    font-size: 10px;
+}
+
+.update_phrase {
+    font-size: 20px;
+}

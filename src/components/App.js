@@ -4,6 +4,7 @@ import React, {Component, Suspense} from 'react';
 import {Route, Switch} from 'react-router-dom';
 const SideNavBar = React.lazy(() => import( './SideNavBar'));
 const Dashboard = React.lazy(() => import( "./Dashboard"));
+const Challenges = React.lazy(() => import( "./Challenges"));
 const HallOfFame = React.lazy(() => import( "./HallOfFame"));
 const HallOfShame = React.lazy(() => import( "./HallOfShame"));
 const Events = React.lazy(() => import( "./Events"));
@@ -28,7 +29,7 @@ class App extends Component {
   signout= () => {
     this.setState({
       isAuthenticated: false
-    })    
+    })
     //setTimeout(cb, 100)
   }
 
@@ -46,6 +47,7 @@ class App extends Component {
               <Suspense fallback={<div>Chargement...</div>}>
                 <Switch>
                   <Route path="/" exact component={Dashboard} />
+                  <Route path="/challenges" exact component={Challenges} />
                   <Route path="/dashboard" component={Dashboard} />
                   <Route path="/hall_fame" component={HallOfFame} />
                   <Route path="/hall_shame" component={HallOfShame} />
@@ -54,7 +56,7 @@ class App extends Component {
                 </Switch>
               </Suspense>
             </div>
-          </div>          
+          </div>
       )}
     else{
       return(
