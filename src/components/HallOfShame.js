@@ -29,11 +29,11 @@ class HallOfShame extends Component {
               <h3>{item.userId}</h3>
               <p>{item.body}</p>
             </Jumbotron>
-          )
-        })
-      }));
-  })
-}
+            )
+          })
+        }));
+    })
+  }
     
 
   render() {

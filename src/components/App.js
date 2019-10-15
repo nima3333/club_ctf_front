@@ -14,7 +14,7 @@ const TopNavBar = React.lazy(() => import('./TopNavBar'));
 
 class App extends Component {
   state = {
-    isAuthenticated: true
+    isAuthenticated: false
   }
 
   authenticate = () => {

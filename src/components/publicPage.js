@@ -3,26 +3,48 @@ import {Redirect, Switch} from 'react-router-dom';
 import styles from './PublicPage.module.css'
 import logo from '../logos/logo.png'
 import ReactBootstrap, {Navbar, Form, Nav, Modal, Button} from 'react-bootstrap'
+import Login from '../auth/Login'
 
 class Public extends React.Component {
   constructor(props){
     super(props)
     this.state={
-      show: false,
+      modal_state: 0,
       email: null,
       password: null,
+      remember: false,
     };
   }
 
-  show = () => {
+  State = {
+    NO_MODAL: 0,
+    LOGIN: 1,
+    FORGOT: 2,
+    REGISTER: 3,
+  };
+
+  showLogin = () => {
     this.setState({
-      show:true,
+      modal_state: this.State.LOGIN,
     })
   }
 
-  handleClose = () => {
+  showForgot = () => {
     this.setState({
-      show:false,
+      modal_state: this.State.FORGOT,
+    })
+  }
+
+  showRegister = () => {
+    this.setState({
+      modal_state: this.State.REGISTER,
+    })
+  }
+
+
+  closeModal = () => {
+    this.setState({
+      modal_state : this.State.NO_MODAL,
     })
   }
 
@@ -30,19 +52,27 @@ class Public extends React.Component {
     this.setState({
       [event.target.type]:event.target.value,
     })
-    console.dir(this.state)
   }
 
   handleSubmit = (event) => {
     event.preventDefault();
   }
 
+  handleCheckbox = (event) => {
+    this.setState({
+      remember : event.target.checked,
+    })
+  }
+
+  log = (e) => {
+    console.log(e.target.checked)
+  }
+
   render(){
     
     return(
       <div className="public">
-
-        <Modal show={this.state.show} onHide={this.handleClose}>
+        <Modal show={this.state.modal_state == this.State.LOGIN} onHide={this.closeModal}>
           <Modal.Header closeButton>
             <Modal.Title>Login</Modal.Title>
           </Modal.Header>
@@ -59,22 +89,55 @@ class Public extends React.Component {
               </Form.Group>
 
               <Form.Group controlId="formBasicCheckbox">
-                <Form.Check type="checkbox" label="Check me out" />
+                <Form.Check onChange={this.handleCheckbox} type="checkbox" label="Check me out" />
               </Form.Group>
-              <a href="/forgot">J'ai oublié mon mot de passe</a>
+              <a onClick={this.showForgot}>J'ai oublié mon mot de passe</a>
             </Form>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={this.handleClose}>
+            <Button variant="secondary" onClick={this.closeModal}>
               Close
             </Button>
-            <Button variant="primary" onClick={this.handleClose}>
+            <Button variant="primary" onClick={this.closeModal}>
               Submit
             </Button>
           </Modal.Footer>
         </Modal>
 
-      
+        <Modal show={this.state.modal_state == this.State.REGISTER} onHide={this.closeModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>Inscription</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={this.closeModal}>
+              Close
+            </Button>
+            <Button variant="primary" onClick={this.closeModal}>
+              Submit
+            </Button>
+          </Modal.Footer>
+        </Modal>
+
+        <Modal show={this.state.modal_state == this.State.FORGOT} onHide={this.closeModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>J'ai oublié mon mot de passe</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={this.closeModal}>
+              Close
+            </Button>
+            <Button variant="primary" onClick={this.closeModal}>
+              Submit
+            </Button>
+          </Modal.Footer>
+        </Modal>
+        
         <div className={styles.fheader}>
           <p className={`${styles.around_text} ${styles.text_left}`}>Club</p>
           <img src={logo} className={styles.logo}></img>
@@ -88,8 +151,8 @@ class Public extends React.Component {
             <Nav.Link style={{color: "white"}} href="#pricing">Pricing</Nav.Link>
           </Nav>
           <Nav>
-            <Nav.Link style={{color: "white"}} onClick={this.show} href="#features">Se connecter</Nav.Link>
-            <Nav.Link style={{color: "white"}} href="#features">S'inscrire</Nav.Link>
+            <Nav.Link style={{color: "white"}} onClick={this.showLogin} href="#features">Se connecter</Nav.Link>
+            <Nav.Link style={{color: "white"}} onClick={this.showRegister} href="#features">S'inscrire</Nav.Link>
           </Nav>
         </Navbar>
         Page de présention du site.
