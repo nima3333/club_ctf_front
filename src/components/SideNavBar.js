@@ -9,14 +9,14 @@ import loupe from '../icons/004-search.png'
 import key from '../icons/005-key.png'
 import ethernet from '../icons/006-ethernet.png'
 const navbar = {backgroundColor: '#202225'};
- 
+
 const items = [
   {
     link:"/dashboard",
     image:prog
   },
   {
-    link:"/dunno",
+    link:"/challenges",
     image:terminal
   },
   {
@@ -36,7 +36,7 @@ const items = [
 const itemObjects = items.map(item => {
   return(
     <NavItem>
-      <NavLink exact to={item.link} className="nav-link" activeClassName={styles.active}> 
+      <NavLink exact to={item.link} className="nav-link" activeClassName={styles.active}>
         <div className={styles.icon}>
         <img className={styles.test}
           src={item.image}
