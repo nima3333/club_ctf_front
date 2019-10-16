@@ -80,18 +80,18 @@ class Public extends React.Component {
           <Form>
               <Form.Group controlId="formBasicEmail">
                 <Form.Label>Email address</Form.Label>
-                <Form.Control onChange={this.handleChange} type="email" placeholder="Enter email" />
+                <Form.Control onChange={this.handleChange} type="email" />
               </Form.Group>
 
               <Form.Group controlId="formBasicPassword">
                 <Form.Label>Password</Form.Label>
-                <Form.Control onChange={this.handleChange} type="password" placeholder="Password" />
+                <Form.Control onChange={this.handleChange} type="password" />
               </Form.Group>
 
               <Form.Group controlId="formBasicCheckbox">
                 <Form.Check onChange={this.handleCheckbox} type="checkbox" label="Check me out" />
               </Form.Group>
-              <a onClick={this.showForgot}>J'ai oublié mon mot de passe</a>
+              <a style={{cursor: "pointer", color: "blue"}} onClick={this.showForgot}>J'ai oublié mon mot de passe</a>
             </Form>
           </Modal.Body>
           <Modal.Footer>
@@ -151,8 +151,8 @@ class Public extends React.Component {
             <Nav.Link style={{color: "white"}} href="#pricing">Pricing</Nav.Link>
           </Nav>
           <Nav>
-            <Nav.Link style={{color: "white"}} onClick={this.showLogin} href="#features">Se connecter</Nav.Link>
-            <Nav.Link style={{color: "white"}} onClick={this.showRegister} href="#features">S'inscrire</Nav.Link>
+            <Nav.Link style={{color: "white"}} onClick={this.showLogin}>Se connecter</Nav.Link>
+            <Nav.Link style={{color: "white"}} onClick={this.showRegister}>S'inscrire</Nav.Link>
           </Nav>
         </Navbar>
         Page de présention du site.

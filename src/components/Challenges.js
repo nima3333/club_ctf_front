@@ -1,37 +1,59 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, {Component} from 'react';
 import styles from './Challenges.module.css';
+import { Media, Button } from 'reactstrap';
+import { ProgressBar, Card , Badge} from 'react-bootstrap';
 
 class Challenges extends Component {
   constructor(props) {
     super(props);
+    this.state =({
+        title: props.title
+    })
     this.challs = [
         {
             id: "01",
             author: "Simon",
             points: 100,
+            title: "Titre 1",
         },
         {
             id: "02",
             author: "Paul",
             points: 500,
+            title: "Titre 2",
         },
         {
             id: "03",
             author: "Jacques",
             points: 1500,
+            title: "Titre 3",
         },
         {
             id: "04",
             author: "Thomas",
             points: 5000,
+            title: "Titre 4",
         }
     ];
     this.title = "Forensic";
+
     this.easy = 75;
     this.mean = 25;
     this.hard = 75;
     this.deadly = 25;
+    this.levels = [
+        {name: "easy",
+        value: 24},
+        {name: "mean",
+        value: 25},
+        {name: "hard",
+        value: 75},
+        {name: "deadly",
+        value: 25}
+    ]
+
+
     this.accompl = [
         {
             name: "Connie G.",
@@ -56,97 +78,100 @@ class Challenges extends Component {
     ];
   }
 
+  
+  
+
   get_color_stat(x) {
     if (x < 25) {
-        return '#ff0000';
+        return 'danger';
     } else if (x < 50) {
-        return '#ff9999';
-    } else if (x < 75) {
-        return '#000000';
+        return 'warning';
     } else {
-        return '#00ff00';
+        return 'success';
     }
   }
 
   get_color_points(x) {
     if (x < 400) {
-        return '#00ff00';
+        return 'success';
     } else if (x < 1000) {
-        return '#ffff00';
+        return 'warning';
     } else if (x < 3500) {
-        return '#ff0000';
+        return 'danger';
     } else {
-        return '#000000';
+        return 'dark';
     }
   }
 
   render() {
+
     return (
         <div className={`Challenges  ${styles.main_div}`}>
             <div className={`Challenges  ${styles.main_flex}`}>
                 <div className={`Challenges  ${styles.col1}`}>
-                    {this.challs.map(chall => (
-                        <div className={`Challenges  ${styles.chall_row}`}>
-                            <div className={`Challenges  ${styles.chall_row_flex}`}>
-                                <div className={`Challenges  ${styles.chall_blue_block}`}/>
-                                <div className={`Challenges  ${styles.chall_text}`}>
-                                    <span>Chall {chall.id}</span><span>{chall.author}</span>
-                                </div>
-                                <div className={`Challenges  ${styles.chall_points_colored}`} style={{background: this.get_color_points(chall.points),}}>
-                                    <div className={`Challenges  ${styles.chall_points_white}`}>
-                                        {chall.points}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    ))}
+                        {this.challs.map(chall => (
+                                <>
+                                <Card border="secondary" style={{ width: '100%', fontSize: "14px"}}>
+                                    <Card.Header>
+                                        <div className={styles.badge}>
+                                            <div className={`${styles.title} ${styles.badge} `}>
+                                                {chall.title} 
+                                            </div>
+                                            <div>
+                                                <Badge pill variant={this.get_color_points(chall.points)}> {chall.points} points </Badge>
+                                            </div>
+                                        </div>
+                                    </Card.Header>
+                                    <Card.Body>
+                                    <Card.Title>{chall.author}</Card.Title>
+                                    <Card.Text>
+                                        Some quick example text to build on the card title and make up the bulk
+                                        of the card's content.
+                                    </Card.Text>
+                                    <Button variant="primary">Go somewhere</Button>
+                                    </Card.Body>
+                                </Card>
+
+                                <br />
+                                </>
+                        ))}
 
                 </div>
+
+
                 <div className={`Challenges  ${styles.col2}`}>
-                <div className={`Challenges  ${styles.col2_flex}`}>
-                    <span className={`Challenges ${styles.title}`}>
-                        {this.title}
-                    </span>
-                    <div className={`Challenges ${styles.diff}`}>
-                        <span>Faciles</span>
-                        <div className={`Challenges  ${styles.diff_bar_white}`}>
-                            <div className={`Challenges  ${styles.diff_bar}`} style={{width: this.easy + '%', background: this.get_color_stat(this.easy),}}/>
-                        </div>
-                    </div>
-                    <div className={`Challenges ${styles.diff}`}>
-                        <span>Moyens</span>
-                        <div className={`Challenges  ${styles.diff_bar_white}`}>
-                            <div className={`Challenges  ${styles.diff_bar}`} style={{width: this.mean + '%', background: this.get_color_stat(this.mean),}}/>
-                        </div>
-                    </div>
-                    <div className={`Challenges ${styles.diff}`}>
-                        <span>Difficiles</span>
-                        <div className={`Challenges  ${styles.diff_bar_white}`}>
-                            <div className={`Challenges  ${styles.diff_bar}`} style={{width: this.hard + '%', background: this.get_color_stat(this.hard),}}/>
-                        </div>
-                    </div>
-                    <div className={`Challenges ${styles.diff}`}>
-                        <span>Mortels</span>
-                        <div className={`Challenges  ${styles.diff_bar_white}`}>
-                            <div className={`Challenges  ${styles.diff_bar}`} style={{width: this.deadly + '%', background: this.get_color_stat(this.deadly),}}/>
-                        </div>
-                    </div>
-                    <div className={`Challenges ${styles.updates}`}>
-                        {this.accompl.map(acc => (
-                            <div className={`Challenges ${styles.update}`}>
-                                <div className={`Challenges ${styles.update_image}`}/>
-                                <div className={`Challenges ${styles.update_content}`}>
-                                    <span className={`Challenges ${styles.update_time}`}>
-                                        {acc.name} à {acc.time}
-                                    </span>
-                                    <span className={`Challenges ${styles.update_phrase}`}>
-                                        A fini le chall {acc.num}
-                                    </span>
-                                </div>
+                <Card border="secondary" text="black" style={{ width: '100%' }}>
+                    <Card.Header>{this.props.chall}</Card.Header>
+                    <Card.Body>
+                        {this.levels.map(level => (
+                            <div className={styles.diff}>
+                            <a>{level.name}</a>
+                            <div style={{width:"75%", display: "flex", justifyContent: "center", flexDirection: "column"}}>
+                            <ProgressBar variant={this.get_color_stat(level.value)} label={level.value} now={level.value}/>
+                            </div>
                             </div>
                         ))}
-                    </div>
-                </div>
+                        <br/>
+                        <Media list>
+                        {this.accompl.map(acco => (
+                            <div >
+                            <Media tag="li">
+                            <Media left href="#">
+                            <div className={`Challenges ${styles.update_image}`}/>
+                            </Media>
+                            <Media body>
+                            <Media heading> <div className={styles.update_time}> {acco.name} à {acco.time} </div>
+                            </Media>
+                            <div className={styles.update_phrase}> A fini le chall </div>
+                            </Media>
+                            </Media>
+                            <br />
+                            </div>
+                        ))}
+                        </Media>
+                    </Card.Body>
+                </Card>
+
                 </div>
             </div>
         </div>
