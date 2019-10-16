@@ -42,68 +42,67 @@ class Dashboard extends Component {
     };
   }
 
+  get_color_stat(x) {
+    if (x < 25) {
+        return 'danger';
+    } else if (x < 50) {
+        return 'warning';
+    } else {
+        return 'success';
+    }
+  }
+
+
   render() {
     return (
         <div className={`Dashboard  ${styles.main_div}`}>
             <div className={`Dashboard  ${styles.main_flex}`}>
-                
-                
                 <div className={`Dashboard  ${styles.row1}`}>
-
-
-                        <Card border="secondary" style={{ width: '60%', fontSize: "14px"}}>
-                                    
-                                    <Card.Body>
-                                    <Card.Title>moi</Card.Title>
-                                    <Card.Text>
-                                    <div className={styles.row}>
-                                    <div className={`Dashboard  ${styles.img}`}>
-                                        <Image src={this.state.avatar} rounded />
-                                    </div>
-                                        <div className={styles.column}>
-                                        <ListGroup>
-                                            <ListGroup.Item>{this.state.pseudo}</ListGroup.Item>
-                                            <ListGroup.Item>{this.state.points} points</ListGroup.Item>
-                                            <ListGroup.Item>Rank : {this.state.rank}</ListGroup.Item>
-                                        </ListGroup>
-                                        </div>
-                                        <div className={styles.column}>
-                                        <ListGroup>
-                                            <ListGroup.Item>{this.state.reussis} challs réussis</ListGroup.Item>
-                                            <ListGroup.Item>{this.state.solutions} solutions publiées</ListGroup.Item>
-                                            <ListGroup.Item>{this.state.inventes} challs inventés</ListGroup.Item>
-                                        </ListGroup>
-                                        </div>
-                                    </div>
-                                    </Card.Text>
-                                    </Card.Body>
-                                </Card>
-
-                    
+                    <Card border="secondary" style={{ width: '60%', fontSize: "14px"}}>
+                        <Card.Body>
+                        <Card.Title>moi</Card.Title>
+                        <Card.Text>
+                        <div className={styles.row}>
+                        <div className={`Dashboard  ${styles.img}`}>
+                            <Image src={this.state.avatar} rounded />
+                        </div>
+                            <div className={styles.column}>
+                            <ListGroup>
+                                <ListGroup.Item>{this.state.pseudo}</ListGroup.Item>
+                                <ListGroup.Item>{this.state.points} points</ListGroup.Item>
+                                <ListGroup.Item>Rank : {this.state.rank}</ListGroup.Item>
+                            </ListGroup>
+                            </div>
+                            <div className={styles.column}>
+                            <ListGroup>
+                                <ListGroup.Item>{this.state.reussis} challs réussis</ListGroup.Item>
+                                <ListGroup.Item>{this.state.solutions} solutions publiées</ListGroup.Item>
+                                <ListGroup.Item>{this.state.inventes} challs inventés</ListGroup.Item>
+                            </ListGroup>
+                            </div>
+                        </div>
+                        </Card.Text>
+                        </Card.Body>
+                    </Card>
                 </div>
 
-
-
-
                 <div className={`Dashboard  ${styles.row1}`}>
-                        <span className={`Dashboard  ${styles.graphtext}`}>
-                            <Graphe/>
-                        </span>
+                    <Card border="secondary" style={{ width: '40%', fontSize: "14px"}}>
+                        <Graphe/>
+                    </Card>
 
-                    <div className={`Dashboard  ${styles.col_stat}`}>
-
+                    <Card border="secondary" style={{ width: '40%', fontSize: "14px"}}>
                         {this.state.stats.map(stat => (
                             <div className={`Dashboard  ${styles.row_stat}`}>
                                 <span className={`Dashboard  ${styles.stat_title}`}>
                                     {stat.name}
                                 </span>
                                 <div className={`Dashboard  ${styles.progress_bar}`}>
-                                    <ProgressBar now={stat.value}/>
+                                    <ProgressBar now={stat.value} variant={this.get_color_stat(stat.value)}/>
                                 </div>
                             </div>
                         ))}
-
-                    </div>
+                    </Card>
                 </div>
             </div>
         </div>
