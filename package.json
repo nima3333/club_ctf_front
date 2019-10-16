@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "bootstrap": "^4.3.1",
+    "chart.js": "^2.8.0",
     "holderjs": "^2.9.6",
     "package.json": "^2.0.1",
     "react": "^16.9.0",

@@ -2,7 +2,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import React, {Component} from 'react';
 import styles from './Dashboard.module.css';
 import avatar from '../icons/007-hacker-icon.jpg';
-import ProgressBar from 'react-bootstrap/ProgressBar'
+import {ProgressBar, Image, Card, ListGroup} from 'react-bootstrap'
+import Graphe from './myLineChart'
 
 class Dashboard extends Component {
   constructor(props) {
@@ -45,44 +46,52 @@ class Dashboard extends Component {
     return (
         <div className={`Dashboard  ${styles.main_div}`}>
             <div className={`Dashboard  ${styles.main_flex}`}>
+                
+                
                 <div className={`Dashboard  ${styles.row1}`}>
-                    <div className={`Dashboard  ${styles.col_img_info}`}>
-                        <div className={`Dashboard  ${styles.img}`}>
-                            <img src={this.state.avatar} alt="avatar" className={`Dashboard  ${styles.image}`}/>
-                        </div>
-                        <div className={`Dashboard  ${styles.col_info}`}>
-                            <h6 className={`Dashboard  ${styles.info}`}>
-                                {this.state.pseudo}
-                            </h6>
-                            <h6 className={`Dashboard  ${styles.info}`}>
-                                {this.state.points} points
-                            </h6>
-                            <h6 className={`Dashboard  ${styles.info}`}>
-                                {this.state.rank} / {this.state.total_member} membres
-                            </h6>
-                        </div>
-                    </div>
-                    <div className={`Dashboard  ${styles.col_img_info}`}>
-                        <div className={`Dashboard  ${styles.col_right_info}`}>
-                            <h6 className={`Dashboard  ${styles.info_right}`}>
-                                {this.state.reussis} challs réussis
-                            </h6>
-                            <h6 className={`Dashboard  ${styles.info_right}`}>
-                                {this.state.solutions} solutions publiées
-                            </h6>
-                            <h6 className={`Dashboard  ${styles.info_right}`}>
-                                {this.state.inventes} challs inventés
-                            </h6>
-                        </div>
-                    </div>
+
+
+                        <Card border="secondary" style={{ width: '60%', fontSize: "14px"}}>
+                                    
+                                    <Card.Body>
+                                    <Card.Title>moi</Card.Title>
+                                    <Card.Text>
+                                    <div className={styles.row}>
+                                    <div className={`Dashboard  ${styles.img}`}>
+                                        <Image src={this.state.avatar} rounded />
+                                    </div>
+                                        <div className={styles.column}>
+                                        <ListGroup>
+                                            <ListGroup.Item>{this.state.pseudo}</ListGroup.Item>
+                                            <ListGroup.Item>{this.state.points} points</ListGroup.Item>
+                                            <ListGroup.Item>Rank : {this.state.rank}</ListGroup.Item>
+                                        </ListGroup>
+                                        </div>
+                                        <div className={styles.column}>
+                                        <ListGroup>
+                                            <ListGroup.Item>{this.state.reussis} challs réussis</ListGroup.Item>
+                                            <ListGroup.Item>{this.state.solutions} solutions publiées</ListGroup.Item>
+                                            <ListGroup.Item>{this.state.inventes} challs inventés</ListGroup.Item>
+                                        </ListGroup>
+                                        </div>
+                                    </div>
+                                    </Card.Text>
+                                    </Card.Body>
+                                </Card>
+
+                    
                 </div>
+
+
+
+
                 <div className={`Dashboard  ${styles.row1}`}>
-                    <div className={`Dashboard  ${styles.graph}`}>
                         <span className={`Dashboard  ${styles.graphtext}`}>
-                            Graphe
+                            <Graphe/>
                         </span>
-                    </div>
+
                     <div className={`Dashboard  ${styles.col_stat}`}>
+
                         {this.state.stats.map(stat => (
                             <div className={`Dashboard  ${styles.row_stat}`}>
                                 <span className={`Dashboard  ${styles.stat_title}`}>
@@ -93,6 +102,7 @@ class Dashboard extends Component {
                                 </div>
                             </div>
                         ))}
+
                     </div>
                 </div>
             </div>

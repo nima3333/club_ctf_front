@@ -142,3 +142,12 @@
     flex-direction: column;
     justify-content: center;
 }
+
+.row {
+    display: flex;
+  }
+  
+.column {
+flex: 50%;
+padding: 2vw;;
+}
