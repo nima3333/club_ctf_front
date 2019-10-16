@@ -4,14 +4,14 @@ import React, {Component, Suspense} from 'react';
 import {Route, Switch} from 'react-router-dom';
 import Dashboard from "./Dashboard"
 import Challenges from './Challenges'
-const SideNavBar = React.lazy(() => import( './SideNavBar'));
-const HallOfFame = React.lazy(() => import( "./HallOfFame"));
-const HallOfShame = React.lazy(() => import( "./HallOfShame"));
-const Events = React.lazy(() => import( "./Events"));
-const Wiki = React.lazy(() => import( "./Wiki"));
-const SignIn = React.lazy(() => import('../auth/SignIn'));
-const Public = React.lazy(() => import('./publicPage'));
-const TopNavBar = React.lazy(() => import('./TopNavBar'));
+import SideNavBar from './SideNavBar'
+import HallOfFame from "./HallOfFame"
+import HallOfShame from "./HallOfShame"
+import Events from "./Events"
+import Wiki from "./Wiki"
+import SignIn from'../auth/SignIn'
+import Public from'./publicPage'
+import TopNavBar from'./TopNavBar'
 
 class App extends Component {
   state = {
