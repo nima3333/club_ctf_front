@@ -12,44 +12,49 @@ const navbar = {backgroundColor: '#202225'};
 
 const items = [
   {
-    link:"/dashboard",
+    link:"Programmation",
     image:prog
   },
   {
-    link:"/challenges",
+    link:"Euh",
     image:terminal
   },
   {
-    link:"/events",
+    link:"Forensic",
     image:loupe
   },
   {
-    link:"/wiki",
+    link:"Crypto",
     image:key
   },
   {
-    link:"/other",
+    link:"Reseau",
     image:ethernet
   }
 ]
 
-const itemObjects = items.map(item => {
-  return(
-    <NavItem>
-      <NavLink exact to={item.link} className="nav-link" activeClassName={styles.active}>
-        <div className={styles.icon}>
-        <img className={styles.test}
-          src={item.image}
-          alt="React Bootstrap logo"
-          title="test"
-        />
-        </div>
-      </NavLink>
-    </NavItem>
-  )
-})
+
 
 class NavBars extends Component {
+  constructor(props){
+    super(props)
+  }
+
+  itemObjects = items.map(item => {
+    return(
+      <NavItem>
+        <NavLink exact to="/challenges" className="nav-link" onClick={()=>this.props.changeChallenge(item.link) } activeClassName={styles.active} >
+          <div className={styles.icon}>
+          <img className={styles.test}
+            src={item.image}
+            alt="React Bootstrap logo"
+            title="test"
+          />
+          </div>
+        </NavLink>
+      </NavItem>
+    )
+  })
 
   render() {
       return (
@@ -58,7 +63,7 @@ class NavBars extends Component {
             <Navbar.Collapse id="responsive-navbar-nav" className="flex-column bbb">
               <Nav className="mr-auto" className={`flex-column ${styles.bbb}`}>
 
-              {itemObjects}
+              {this.itemObjects}
 
               </Nav>
               </Navbar.Collapse>

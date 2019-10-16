@@ -70,7 +70,7 @@
     padding-bottom: 20px;
     display: block;
     min-width: 410px;
-    width: 40%;
+    width: 50%;
 }
 
 .col2_flex {
@@ -145,4 +145,21 @@
 
 .update_phrase {
     font-size: 20px;
+}
+
+.side {
+    float: left;
+    width: max-content;
+}
+
+.badge {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+
+.title{
+    font-size: 25px;
+    padding: 0;
 }

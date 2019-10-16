@@ -2,9 +2,9 @@ import styles from './App.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, {Component, Suspense} from 'react';
 import {Route, Switch} from 'react-router-dom';
+import Dashboard from "./Dashboard"
+import Challenges from './Challenges'
 const SideNavBar = React.lazy(() => import( './SideNavBar'));
-const Dashboard = React.lazy(() => import( "./Dashboard"));
-const Challenges = React.lazy(() => import( "./Challenges"));
 const HallOfFame = React.lazy(() => import( "./HallOfFame"));
 const HallOfShame = React.lazy(() => import( "./HallOfShame"));
 const Events = React.lazy(() => import( "./Events"));
@@ -15,7 +15,8 @@ const TopNavBar = React.lazy(() => import('./TopNavBar'));
 
 class App extends Component {
   state = {
-    isAuthenticated: false
+    isAuthenticated: true,
+    challenge: false
   }
 
   authenticate = () => {
@@ -33,6 +34,28 @@ class App extends Component {
     //setTimeout(cb, 100)
   }
 
+  changeChallenge= (chall) => {
+    this.setState({
+      challenge : chall
+    })
+    //console.dir(this.state.challenge)
+  }
+
+  ChallengePage = (props) => {
+    if(this.state.challenge != false){
+    return (
+      <Challenges 
+        chall={this.state.challenge}
+        {...props}
+      />
+    );}
+    else{
+      return(
+        <Dashboard/>
+      )
+    }
+  }
+
   render() {
     if (this.state.isAuthenticated){
       return (
@@ -42,19 +65,17 @@ class App extends Component {
               </Suspense>
             <div className={styles.box}>
               <Suspense fallback={<div>Chargement...</div>}>
-                <SideNavBar />
+                <SideNavBar changeChallenge={this.changeChallenge}/>
               </Suspense>
-              <Suspense fallback={<div>Chargement...</div>}>
                 <Switch>
                   <Route path="/" exact component={Dashboard} />
-                  <Route path="/challenges" exact component={Challenges} />
+                  <Route path="/challenges" exact render={this.ChallengePage}/>}
                   <Route path="/dashboard" component={Dashboard} />
                   <Route path="/hall_fame" component={HallOfFame} />
                   <Route path="/hall_shame" component={HallOfShame} />
                   <Route path="/events" component={Events} />
                   <Route path="/wiki" component={Wiki} />
                 </Switch>
-              </Suspense>
             </div>
           </div>
       )}
@@ -67,5 +88,7 @@ class App extends Component {
     }
   }
 }
+
+
 
 export default App;
