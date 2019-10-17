@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import ReactBootstrap, {Navbar, Form, Nav, Modal, Button, Spinner} from 'react-bootstrap'
+import {Form, Modal, Button} from 'react-bootstrap'
 import {userService} from './Authentification'
 
 class Forgot extends Component {
@@ -9,9 +9,8 @@ class Forgot extends Component {
         this.state = {
             modal_state : this.props.modal_state,
             email: null,
-            password: null,
-            remember: false,
-            show_login_button: false,
+            show_forgot_button: false,
+            done: false,
         };
         this.State = this.props.State
       }
@@ -20,7 +19,7 @@ class Forgot extends Component {
 
     handleChange = (event) => {
         this.setState({
-          [event.target.type]:event.target.value,
+          [event.target.id]:event.target.value,
         })
     }
     
@@ -34,29 +33,42 @@ class Forgot extends Component {
         })
     }
 
-    loginButton = () => {
-        userService.login(this.state.email, this.state.password, this.props.authenticate)
+    forgotButton = () => {
+        userService.forgot(this.state.email)
         this.setState({
-          show_login_button: true,
+          done: true,
         })
       }
-    
+
     render() {
+        var body = ""
+        var button = ""
+        if(this.state.done === false){
+          body = <Form.Group>
+                              <Form.Label>Veuillez entrer votre adresse email</Form.Label>
+                              <Form.Control onChange={this.handleChange} id="email" type="email" />
+                        </Form.Group>
+          button =  <Button variant="primary" onClick={this.forgotButton} hidden={this.done}>
+                      Valider
+                    </Button>
+        }
+        else{
+          body = <p>Vous allez recevoir un mail vous permettant de changer votre mot de passe</p>
+          button = ""
+        }
         return(
-            <Modal show={this.props.modal_state == this.State.FORGOT} onHide={this.closeModal}>
+            <Modal show={this.props.modal_state === this.State.FORGOT} onHide={this.closeModal}>
                 <Modal.Header closeButton>
                     <Modal.Title>J'ai oublié mon mot de passe</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-
+                  {body}
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={this.closeModal}>
-                    Close
+                    Fermer
                     </Button>
-                    <Button variant="primary" onClick={this.closeModal}>
-                    Submit
-                    </Button>
+                    {button}
                 </Modal.Footer>
             </Modal>
         )}

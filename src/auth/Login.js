@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import ReactBootstrap, {Navbar, Form, Nav, Modal, Button, Spinner} from 'react-bootstrap'
+import {Form, Modal, Button, Spinner} from 'react-bootstrap'
 import {userService} from '../auth/Authentification'
 
 class Login extends Component {
@@ -35,15 +35,15 @@ class Login extends Component {
     }
 
     loginButton = () => {
-        userService.login(this.state.email, this.state.password, this.props.authenticate)
         this.setState({
-          show_login_button: true,
+            show_login_button: true,
         })
+        userService.login(this.state.email, this.state.password, this.props.authenticate)
       }
     
     render() {
         return(
-            <Modal show={this.props.modal_state == this.State.LOGIN} onHide={this.closeModal}>
+            <Modal show={this.props.modal_state === this.State.LOGIN} onHide={this.closeModal}>
                 <Modal.Header closeButton>
                     <Modal.Title>Login</Modal.Title>
                 </Modal.Header>
@@ -62,7 +62,7 @@ class Login extends Component {
                     <Form.Group controlId="formBasicCheckbox">
                         <Form.Check onChange={this.handleCheckbox} type="checkbox" label="Se rappeler de moi" />
                     </Form.Group>
-                    <a style={{cursor: "pointer", color: "blue"}} onClick={this.props.showForgot}>J'ai oublié mon mot de passe</a>
+                    <p style={{cursor: "pointer", color: "blue"}} onClick={this.props.showForgot}>J'ai oublié mon mot de passe</p>
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>

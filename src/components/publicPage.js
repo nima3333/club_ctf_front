@@ -1,8 +1,7 @@
-import React, {Component} from 'react';
-import {Redirect, Switch} from 'react-router-dom';
+import React from 'react';
 import styles from './PublicPage.module.css'
 import logo from '../logos/logo.png'
-import ReactBootstrap, {Navbar, Form, Nav, Modal, Button, Spinner} from 'react-bootstrap'
+import {Navbar, Nav} from 'react-bootstrap'
 import Login from '../auth/Login'
 import Register from '../auth/Register'
 import Forgot from '../auth/Forgot'
@@ -88,7 +87,7 @@ class Public extends React.Component {
         
         <div className={styles.fheader}>
           <p className={`${styles.around_text} ${styles.text_left}`}>Club</p>
-          <img src={logo} className={styles.logo}></img>
+          <img src={logo} className={styles.logo} alt="Logo"></img>
           <p className={`${styles.around_text} ${styles.text_right}`}>CTF</p>
         </div>
         <Navbar sticky="top" style={{backgroundColor: "black"}}>

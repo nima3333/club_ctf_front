@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, {Component} from 'react';
-import ReactBootstrap, {Jumbotron} from 'react-bootstrap'
+import {Jumbotron} from 'react-bootstrap'
 import styles from './HallOfShame.module.css'
 import Loading from '../misc/Loading'
 

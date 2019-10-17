@@ -41,7 +41,7 @@ class App extends Component {
   }
 
   ChallengePage = (props) => {
-    if(this.state.challenge != false){
+    if(this.state.challenge !== false){
     return (
       <Challenges 
         chall={this.state.challenge}

@@ -1,7 +1,7 @@
 import styles from './SideNavBar.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, {Component} from 'react';
-import ReactBootstrap, {Navbar, NavItem, Nav} from 'react-bootstrap'
+import {Navbar, NavItem, Nav} from 'react-bootstrap'
 import { NavLink } from 'react-router-dom';
 import prog from '../icons/001-curly-brackets.png';
 import terminal from '../icons/003-terminal-windows.png'
@@ -36,9 +36,6 @@ const items = [
 
 
 class NavBars extends Component {
-  constructor(props){
-    super(props)
-  }
 
   itemObjects = items.map(item => {
     return(

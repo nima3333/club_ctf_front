@@ -145,7 +145,7 @@ class Challenges extends Component {
                     <Card.Body>
                         {this.levels.map(level => (
                             <div className={styles.diff}>
-                            <a>{level.name}</a>
+                            <p>{level.name}</p>
                             <div style={{width:"75%", display: "flex", justifyContent: "center", flexDirection: "column"}}>
                             <ProgressBar variant={this.get_color_stat(level.value)} label={level.value} now={level.value}/>
                             </div>

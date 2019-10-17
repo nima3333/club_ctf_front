@@ -2,10 +2,9 @@ import logo from '../logos/logo.png';
 import styles from './TopNavBar.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, {Component} from 'react';
-import ReactBootstrap, {Navbar, NavItem, Nav} from 'react-bootstrap'
+import {Navbar, NavItem, Nav} from 'react-bootstrap'
 import Dropdown from '../misc/DropdownIcon'
 import { NavLink } from 'react-router-dom';
-import hacker from '../logos/hacker.jpg'
 const navbar = {backgroundColor: '#282F3C'};
 
 class NavBars extends Component {

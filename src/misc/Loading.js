@@ -1,5 +1,5 @@
 import Loader from 'react-loader-spinner'
-import React, {Component} from 'react';
+import React from 'react';
 import styles from './Loading.module.css'
 
 function Loading() {

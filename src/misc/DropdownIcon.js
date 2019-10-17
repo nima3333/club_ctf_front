@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactBootstrap, {Navbar, NavItem} from 'react-bootstrap'
 import logo from '../logos/hacker.jpg'
 import styles from './DropdownIcon.module.css'
 import { Dropdown, DropdownMenu, DropdownToggle, DropdownItem} from 'reactstrap';
