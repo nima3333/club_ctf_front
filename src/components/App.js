@@ -14,7 +14,7 @@ import TopNavBar from'./TopNavBar'
 
 class App extends Component {
   state = {
-    isAuthenticated: true,
+    isAuthenticated: false,
     challenge: false
   }
 
