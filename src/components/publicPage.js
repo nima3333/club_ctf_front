@@ -2,8 +2,9 @@ import React, {Component} from 'react';
 import {Redirect, Switch} from 'react-router-dom';
 import styles from './PublicPage.module.css'
 import logo from '../logos/logo.png'
-import ReactBootstrap, {Navbar, Form, Nav, Modal, Button} from 'react-bootstrap'
+import ReactBootstrap, {Navbar, Form, Nav, Modal, Button, Spinner} from 'react-bootstrap'
 import Login from '../auth/Login'
+import {userService} from '../auth/Authentification'
 
 class Public extends React.Component {
   constructor(props){
@@ -13,6 +14,7 @@ class Public extends React.Component {
       email: null,
       password: null,
       remember: false,
+      show_login_button: false,
     };
   }
 
@@ -68,6 +70,13 @@ class Public extends React.Component {
     console.log(e.target.checked)
   }
 
+  loginButton = () => {
+    userService.login(this.state.email, this.state.password, this.props.authenticate)
+    this.setState({
+      show_login_button: true,
+    })
+  }
+
   render(){
     
     return(
@@ -79,27 +88,35 @@ class Public extends React.Component {
           <Modal.Body>
           <Form>
               <Form.Group controlId="formBasicEmail">
-                <Form.Label>Email address</Form.Label>
+                <Form.Label>Adresse email</Form.Label>
                 <Form.Control onChange={this.handleChange} type="email" />
               </Form.Group>
 
               <Form.Group controlId="formBasicPassword">
-                <Form.Label>Password</Form.Label>
+                <Form.Label>Mot de passe</Form.Label>
                 <Form.Control onChange={this.handleChange} type="password" />
               </Form.Group>
 
               <Form.Group controlId="formBasicCheckbox">
-                <Form.Check onChange={this.handleCheckbox} type="checkbox" label="Check me out" />
+                <Form.Check onChange={this.handleCheckbox} type="checkbox" label="Se rappeler de moi" />
               </Form.Group>
               <a style={{cursor: "pointer", color: "blue"}} onClick={this.showForgot}>J'ai oublié mon mot de passe</a>
             </Form>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={this.closeModal}>
-              Close
+              Fermer
             </Button>
-            <Button variant="primary" onClick={this.closeModal}>
-              Submit
+            <Button variant="primary" onClick={this.loginButton} disabled = {this.state.show_login_button}>
+            <Spinner
+                as="span"
+                animation="border"
+                size="sm"
+                role="status"
+                aria-hidden="true"
+                hidden = {!this.state.show_login_button}
+              />
+              Valider
             </Button>
           </Modal.Footer>
         </Modal>
@@ -109,6 +126,11 @@ class Public extends React.Component {
             <Modal.Title>Inscription</Modal.Title>
           </Modal.Header>
           <Modal.Body>
+
+          <Form.Group controlId="formBasicEmail">
+                <Form.Label>Adresse email</Form.Label>
+                <Form.Control onChange={this.handleChange} type="email" />
+          </Form.Group>
 
           </Modal.Body>
           <Modal.Footer>

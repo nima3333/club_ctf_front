@@ -9,7 +9,6 @@ import HallOfFame from "./HallOfFame"
 import HallOfShame from "./HallOfShame"
 import Events from "./Events"
 import Wiki from "./Wiki"
-import SignIn from'../auth/SignIn'
 import Public from'./publicPage'
 import TopNavBar from'./TopNavBar'
 
