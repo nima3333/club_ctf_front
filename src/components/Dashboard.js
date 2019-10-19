@@ -58,7 +58,7 @@ class Dashboard extends Component {
         <div className={`Dashboard  ${styles.main_div}`}>
             <div className={`Dashboard  ${styles.main_flex}`}>
                 <div className={`Dashboard  ${styles.row1}`}>
-                    <Card border="secondary" style={{ width: '60%', fontSize: "14px"}}>
+                    <Card border="secondary" style={{ width: '90%', fontSize: "14px"}}>
                         <Card.Body>
                         <Card.Title>moi</Card.Title>
                         <Card.Text>

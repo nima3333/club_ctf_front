@@ -30,3 +30,7 @@
   display: flex;
   align-items: stretch;
 }
+
+html, body {
+  overflow-x: hidden;
+}
