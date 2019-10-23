@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import React, {Component} from 'react';
 import styles from './Dashboard.module.css';
 import avatar from '../icons/007-hacker-icon.jpg';
-import {ProgressBar, Image, Card, ListGroup} from 'react-bootstrap'
+import {ProgressBar, Image, Card, ListGroup, Container, Row, Col} from 'react-bootstrap'
 import Graphe from './myLineChart'
 
 class Dashboard extends Component {
@@ -56,55 +56,62 @@ class Dashboard extends Component {
   render() {
     return (
         <div className={`Dashboard  ${styles.main_div}`}>
-            <div className={`Dashboard  ${styles.main_flex}`}>
-                <div className={`Dashboard  ${styles.row1}`}>
-                    <Card border="secondary" style={{ width: '90%', fontSize: "14px"}}>
+            <Container>
+                <Row>
+                    <Card border="secondary" style={{ width: '100%', fontSize: "14px"}}>
                         <Card.Body>
                         <Card.Title>moi</Card.Title>
                         <Card.Text>
-                        <div className={styles.row}>
-                        <div className={`Dashboard  ${styles.img}`}>
-                            <Image src={this.state.avatar} rounded />
-                        </div>
-                            <div className={styles.column}>
-                            <ListGroup>
-                                <ListGroup.Item>{this.state.pseudo}</ListGroup.Item>
-                                <ListGroup.Item>{this.state.points} points</ListGroup.Item>
-                                <ListGroup.Item>Rank : {this.state.rank}</ListGroup.Item>
-                            </ListGroup>
-                            </div>
-                            <div className={styles.column}>
-                            <ListGroup>
-                                <ListGroup.Item>{this.state.reussis} challs réussis</ListGroup.Item>
-                                <ListGroup.Item>{this.state.solutions} solutions publiées</ListGroup.Item>
-                                <ListGroup.Item>{this.state.inventes} challs inventés</ListGroup.Item>
-                            </ListGroup>
-                            </div>
-                        </div>
+                            <Container>
+                            <Row>
+                                <Col>
+                                    <Image src={this.state.avatar} rounded />
+                                </Col>
+                                <Col>
+                                <ListGroup>
+                                    <ListGroup.Item>{this.state.pseudo}</ListGroup.Item>
+                                    <ListGroup.Item>{this.state.points} points</ListGroup.Item>
+                                    <ListGroup.Item>Rank : {this.state.rank}</ListGroup.Item>
+                                </ListGroup>
+                                </Col>
+                                <Col>
+                                <ListGroup>
+                                    <ListGroup.Item>{this.state.reussis} challs réussis</ListGroup.Item>
+                                    <ListGroup.Item>{this.state.solutions} solutions publiées</ListGroup.Item>
+                                    <ListGroup.Item>{this.state.inventes} challs inventés</ListGroup.Item>
+                                </ListGroup>
+                                </Col>
+                            </Row>
+                            </Container>
                         </Card.Text>
                         </Card.Body>
                     </Card>
-                </div>
-
-                <div className={`Dashboard  ${styles.row1}`}>
-                    <Card border="secondary" style={{ width: '40%', fontSize: "14px"}}>
-                        <Graphe/>
-                    </Card>
-
-                    <Card border="secondary" style={{ width: '40%', fontSize: "14px"}}>
-                        {this.state.stats.map(stat => (
-                            <div className={`Dashboard  ${styles.row_stat}`}>
-                                <span className={`Dashboard  ${styles.stat_title}`}>
-                                    {stat.name}
-                                </span>
-                                <div className={`Dashboard  ${styles.progress_bar}`}>
-                                    <ProgressBar now={stat.value} variant={this.get_color_stat(stat.value)}/>
-                                </div>
-                            </div>
-                        ))}
-                    </Card>
-                </div>
-            </div>
+                </Row>
+ 
+                <Row style={{paddingTop : "15px"}}>
+                    <Col>
+                        <Card border="secondary" style={{ width: '100%', fontSize: "14px"}}>
+                            <Graphe/>
+                        </Card>
+                    </Col>
+                    <Col style={{paddingTop: "15px"}}>
+                        <Card border="secondary" style={{ width: '100%', fontSize: "14px"}}>
+                            <Col>
+                            {this.state.stats.map(stat => (
+                                <Row>
+                                    <span className={`Dashboard  ${styles.stat_title}`}>
+                                        {stat.name}
+                                    </span>
+                                    <div className={`${styles.progress_bar}`}>
+                                        <ProgressBar now={stat.value} variant={this.get_color_stat(stat.value)}/>
+                                    </div>
+                                </Row>
+                            ))}
+                            </Col>
+                        </Card>
+                    </Col>
+                </Row>
+            </Container>
         </div>
     );
   }

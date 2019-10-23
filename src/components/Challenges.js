@@ -107,11 +107,12 @@ class Challenges extends Component {
 
     return (
         <div className={`Challenges  ${styles.main_div}`}>
-            <div className={`Challenges  ${styles.main_flex}`}>
-                <div className={`Challenges  ${styles.col1}`}>
+            <Container>
+                <Row>
+                    <Col>
                         {this.challs.map(chall => (
                                 <>
-                                <Card border="secondary" style={{ width: '95%', fontSize: "14px"}}>
+                                <Card border="secondary" style={{ width: '100%', fontSize: "14px"}}>
                                     <Card.Header>
                                         <div className={styles.badge}>
                                             <div className={`${styles.title} ${styles.badge} `}>
@@ -136,44 +137,43 @@ class Challenges extends Component {
                                 </>
                         ))}
 
-                </div>
+                    </Col>
 
-
-                <div className={`Challenges  ${styles.col2}`}>
-                <Card border="secondary" text="black" style={{ width: '100%' }}>
-                    <Card.Header>{this.props.chall}</Card.Header>
-                    <Card.Body>
-                        {this.levels.map(level => (
-                            <div className={styles.diff}>
-                            <p>{level.name}</p>
-                            <div style={{width:"75%", display: "flex", justifyContent: "center", flexDirection: "column"}}>
-                            <ProgressBar variant={this.get_color_stat(level.value)} label={level.value} now={level.value}/>
-                            </div>
-                            </div>
-                        ))}
-                        <br/>
-                        <Media list>
-                        {this.accompl.map(acco => (
-                            <div >
-                            <Media tag="li">
-                            <Media left href="#">
-                            <div className={`Challenges ${styles.update_image}`}/>
-                            </Media>
-                            <Media body>
-                            <Media heading> <div className={styles.update_time}> {acco.name} à {acco.time} </div>
-                            </Media>
-                            <div className={styles.update_phrase}> A fini le chall </div>
-                            </Media>
-                            </Media>
-                            <br />
-                            </div>
-                        ))}
-                        </Media>
-                    </Card.Body>
-                </Card>
-
-                </div>
-            </div>
+                    <Col>
+                        <Card border="secondary" text="black" style={{ width: '100%' }}>
+                            <Card.Header>{this.props.chall}</Card.Header>
+                            <Card.Body>
+                                {this.levels.map(level => (
+                                    <div className={styles.diff}>
+                                    <p>{level.name}</p>
+                                    <div style={{width:"75%", display: "flex", justifyContent: "center", flexDirection: "column"}}>
+                                    <ProgressBar variant={this.get_color_stat(level.value)} label={level.value} now={level.value}/>
+                                    </div>
+                                    </div>
+                                ))}
+                                <br/>
+                                <Media list>
+                                {this.accompl.map(acco => (
+                                    <div >
+                                    <Media tag="li">
+                                    <Media left href="#">
+                                    <div className={`Challenges ${styles.update_image}`}/>
+                                    </Media>
+                                    <Media body>
+                                    <Media heading> <div className={styles.update_time}> {acco.name} à {acco.time} </div>
+                                    </Media>
+                                    <div className={styles.update_phrase}> A fini le chall </div>
+                                    </Media>
+                                    </Media>
+                                    <br />
+                                    </div>
+                                ))}
+                                </Media>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                </Row>
+            </Container>
         </div>
     );
   }
