@@ -94,8 +94,6 @@ class Public extends React.Component {
           <Navbar.Brand style={{color: "white"}} href="#home">Navbar</Navbar.Brand>
           <Nav className="mr-auto" >
             <Nav.Link style={{color: "white"}} href="#home">Home</Nav.Link>
-            <Nav.Link style={{color: "white"}} href="#features">Features</Nav.Link>
-            <Nav.Link style={{color: "white"}} href="#pricing">Pricing</Nav.Link>
           </Nav>
           <Nav>
             <Nav.Link style={{color: "white"}} onClick={this.showLogin}>Se connecter</Nav.Link>

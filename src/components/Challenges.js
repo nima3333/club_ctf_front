@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import React, {Component} from 'react';
 import styles from './Challenges.module.css';
 import { Media, Button } from 'reactstrap';
-import { ProgressBar, Card , Badge} from 'react-bootstrap';
+import { ProgressBar, Card , Badge, Col, Row, Container} from 'react-bootstrap';
 
 class Challenges extends Component {
   constructor(props) {
@@ -111,7 +111,7 @@ class Challenges extends Component {
                 <div className={`Challenges  ${styles.col1}`}>
                         {this.challs.map(chall => (
                                 <>
-                                <Card border="secondary" style={{ width: '100%', fontSize: "14px"}}>
+                                <Card border="secondary" style={{ width: '95%', fontSize: "14px"}}>
                                     <Card.Header>
                                         <div className={styles.badge}>
                                             <div className={`${styles.title} ${styles.badge} `}>
