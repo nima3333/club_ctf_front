@@ -74,13 +74,6 @@ class Dashboard extends Component {
                                     <ListGroup.Item>Rank : {this.state.rank}</ListGroup.Item>
                                 </ListGroup>
                                 </Col>
-                                <Col>
-                                <ListGroup>
-                                    <ListGroup.Item>{this.state.reussis} challs réussis</ListGroup.Item>
-                                    <ListGroup.Item>{this.state.solutions} solutions publiées</ListGroup.Item>
-                                    <ListGroup.Item>{this.state.inventes} challs inventés</ListGroup.Item>
-                                </ListGroup>
-                                </Col>
                             </Row>
                             </Container>
                         </Card.Text>

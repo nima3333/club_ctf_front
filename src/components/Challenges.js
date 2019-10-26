@@ -45,7 +45,7 @@ class Challenges extends Component {
     this.levels = [
         {name: "easy",
         value: 24},
-        {name: "mean",
+        {name: "medium",
         value: 25},
         {name: "hard",
         value: 75},
@@ -144,12 +144,16 @@ class Challenges extends Component {
                             <Card.Header>{this.props.chall}</Card.Header>
                             <Card.Body>
                                 {this.levels.map(level => (
-                                    <div className={styles.diff}>
-                                    <p>{level.name}</p>
-                                    <div style={{width:"75%", display: "flex", justifyContent: "center", flexDirection: "column"}}>
-                                    <ProgressBar variant={this.get_color_stat(level.value)} label={level.value} now={level.value}/>
-                                    </div>
-                                    </div>
+                                    <Container className={styles.diff}>
+                                        <Row style={{width:"100%"}}>
+                                            <Col md="4" className={styles.text_level}>
+                                                <p> {level.name} </p>
+                                            </Col>
+                                            <Col md="auto" style={{width:"100%", display: "flex", justifyContent: "center", flexDirection: "column"}}>
+                                                <ProgressBar variant={this.get_color_stat(level.value)} label={level.value} now={level.value}/>
+                                            </Col>
+                                        </Row>
+                                    </Container>
                                 ))}
                                 <br/>
                                 {/*
