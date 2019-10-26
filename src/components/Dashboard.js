@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import styles from './Dashboard.module.css';
 import avatar from '../icons/007-hacker-icon.jpg';
 import {ProgressBar, Image, Card, ListGroup, Container, Row, Col} from 'react-bootstrap'
-import Graphe from './myLineChart'
+import Graphe from '../misc/LineGraph'
 
 class Dashboard extends Component {
   constructor(props) {

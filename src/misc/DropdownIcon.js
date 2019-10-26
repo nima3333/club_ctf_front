@@ -25,7 +25,7 @@ class AvatarMenu extends React.Component {
   
   render() {
     return (
-        <div class="dropdown">
+        <div className={styles.dropdown}>
         <Dropdown direction="left" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
         <DropdownToggle
           tag="span"
