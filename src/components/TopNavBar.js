@@ -9,7 +9,40 @@ const navbar = {backgroundColor: '#282F3C'};
 
 class NavBars extends Component {
 
+  constructor() {
+    super();
+    this.state = {
+      width: window.innerWidth,
+    };
+  }
+  
+  componentWillMount() {
+    window.addEventListener('resize', this.handleWindowSizeChange);
+  }
+  
+  // make sure to remove the listener
+  // when the component is not mounted anymore
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleWindowSizeChange);
+  }
+  
+  handleWindowSizeChange = () => {
+    this.setState({ width: window.innerWidth });
+  };
+
   render() {
+      const { width } = this.state;
+      const isMobile = width <= 1000;
+      let logout
+      if(!isMobile){
+         logout = <Dropdown signOut={this.props.signOut}/>
+      }
+      else{
+         logout = <NavItem>
+                        <NavLink exact to="/" className={`nav-link ${styles.topbar_link}`} onClick={this.props.signOut}>Logout</NavLink>
+                      </NavItem>
+      }
+
       return (
           <div className={`sidenavbar ${styles.aaa}`}>
             <Navbar style={navbar} expand="lg" sticky="top" className={styles.no_border}>
@@ -32,22 +65,26 @@ class NavBars extends Component {
                 <NavItem className="link_container">
                   <NavLink exact to="/dashboard" className={`nav-link ${styles.topbar_link}`} activeClassName={styles.active}>Dashboard</NavLink>
                 </NavItem>
+                {/*
                 <NavItem>
                   <NavLink exact to="/hall_fame" className={`nav-link ${styles.topbar_link}`} activeClassName={styles.active}>Hall of Fame</NavLink>
                 </NavItem>
+                */}
                 <NavItem>
                   <NavLink exact to="/hall_shame" className={`nav-link ${styles.topbar_link}`} activeClassName={styles.active}>Hall of Shame</NavLink>
                 </NavItem>
                 <NavItem>
                   <NavLink exact to="/events" className={`nav-link ${styles.topbar_link}`} activeClassName={styles.active}>Events</NavLink>
                 </NavItem>
+                {/*
                 <NavItem>
                   <NavLink exact to="/wiki" className={`nav-link ${styles.topbar_link}`} activeClassName={styles.active}>Wiki</NavLink>
                 </NavItem>
+                */}
               </Nav>
 
               <Nav>
-                <Dropdown signOut={this.props.signOut}/>
+                {logout}
               </Nav>
 
             </Navbar.Collapse>

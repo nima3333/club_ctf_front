@@ -152,6 +152,7 @@ class Challenges extends Component {
                                     </div>
                                 ))}
                                 <br/>
+                                {/*
                                 <Media list>
                                 {this.accompl.map(acco => (
                                     <div >
@@ -169,6 +170,7 @@ class Challenges extends Component {
                                     </div>
                                 ))}
                                 </Media>
+                                */}
                             </Card.Body>
                         </Card>
                     </Col>

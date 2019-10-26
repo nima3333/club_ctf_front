@@ -58,10 +58,11 @@ class Login extends Component {
                         <Form.Label>Mot de passe</Form.Label>
                         <Form.Control onChange={this.handleChange} type="password" />
                     </Form.Group>
-
+                    {/*
                     <Form.Group controlId="formBasicCheckbox">
                         <Form.Check onChange={this.handleCheckbox} type="checkbox" label="Se rappeler de moi" />
                     </Form.Group>
+                    */}
                     <p style={{cursor: "pointer", color: "blue"}} onClick={this.props.showForgot}>J'ai oublié mon mot de passe</p>
                     </Form>
                 </Modal.Body>

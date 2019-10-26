@@ -71,9 +71,9 @@ class App extends Component {
                   <Route path="/challenges" exact render={this.ChallengePage}/>}
                   <Route path="/dashboard" component={Dashboard} />
                   <Route path="/hall_fame" component={HallOfFame} />
+                  <Route path="/wiki" component={Wiki} />
                   <Route path="/hall_shame" component={HallOfShame} />
                   <Route path="/events" component={Events} />
-                  <Route path="/wiki" component={Wiki} />
                 </Switch>
             </div>
           </div>
