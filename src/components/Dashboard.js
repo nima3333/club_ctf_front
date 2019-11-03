@@ -65,7 +65,7 @@ class Dashboard extends Component {
                             <Container>
                             <Row>
                                 <Col>
-                                    <Image src={this.state.avatar} rounded />
+                                    <Image className={styles.image2} src={this.state.avatar} rounded />
                                 </Col>
                                 <Col>
                                 <ListGroup>

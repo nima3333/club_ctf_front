@@ -1,6 +1,7 @@
 .bbb {
   display: flex;
   min-height: calc(100vh - 63.16px);
+  min-width: 4.2vw;
 }
 
 .main_logo{
