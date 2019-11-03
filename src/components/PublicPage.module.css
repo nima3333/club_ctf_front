@@ -27,7 +27,6 @@
     color: white;
     margin-top: auto;
     margin-bottom: auto;
-    font-size: 13vh;
 }
 
 .text_left{
@@ -38,4 +37,28 @@
 .text_right{
     margin-left: 20px;
     margin-right: auto;
+}
+
+@media (min-width: 858px) {
+    .text_font_size {
+        font-size: 16vh;
+    }
+}
+
+@media (max-width: 780px) {
+    .text_font_size {
+        font-size: 12vh;
+    }
+}
+
+@media (max-width: 702px) {
+    .text_font_size {
+        font-size: 11vh;
+    }
+}
+
+@media (max-width: 623px) {
+    .text_font_size {
+        font-size: 9vh;
+    }
 }

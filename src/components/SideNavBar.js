@@ -8,7 +8,7 @@ import terminal from '../icons/003-terminal-windows.png'
 import loupe from '../icons/004-search.png'
 import key from '../icons/005-key.png'
 import ethernet from '../icons/006-ethernet.png'
-const navbar = {backgroundColor: '#202225'};
+const navbar = {backgroundColor: '#1D252B'};
 
 const items = [
   {
