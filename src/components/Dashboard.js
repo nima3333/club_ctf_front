@@ -56,43 +56,52 @@ class Dashboard extends Component {
   render() {
     return (
         <div className={`Dashboard  ${styles.main_div}`}>
-            <Container>
-                <Row>
+            <Container fluid="true">
+                <Row className={styles.main_row}>
                     <Col>
-                        <Image className={styles.image2} src={this.state.avatar} rounded />
-                    </Col>
-                    <Col>
+                        <Card border="info" className={styles.info_card}>
+                                <Card.Body>
+                                    <Card.Text className={styles.card_title}>
+                                    <Image className={styles.image2} src={this.state.avatar} rounded />
+                                    </Card.Text>
+                                </Card.Body>
+                        </Card>
                         
                     </Col>
+                    <Col>
+                        <Card border="info" className={styles.info_card}>
+                            <Card.Body>
+                                <Card.Title className={styles.info_card_title} style={{color: "blue"}}>Validations</Card.Title>
+                                <Card.Text className={styles.card_title}>
+                                    18
+                                </Card.Text>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                    <Col>
+                        <Card className={styles.info_card} style={{borderColor:"purple" }}>
+                            <Card.Body>
+                                <Card.Title className={styles.info_card_title} style={{color: "purple"}}>Auteur(s)</Card.Title>
+                                <Card.Text className={styles.card_title}>
+                                    JackPepper, T2Lab
+                                </Card.Text>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                    <Col>
+                        <Card className={styles.info_card} style={{borderColor:"grey" }}>
+                            <Card.Body>
+                                <Card.Title className={styles.info_card_title} style={{color: "grey"}}>Récompense</Card.Title>
+                                <Card.Text className={styles.card_title}>
+                                    5 points
+                                </Card.Text>
+                            </Card.Body>
+                        </Card>
+                    </Col>
                 </Row>
 
 
-
-                <Row>
-                    <Card border="secondary" style={{ width: '100%', fontSize: "14px"}}>
-                        <Card.Body>
-                        <Card.Title>moi</Card.Title>
-                        <Card.Text>
-                            <Container>
-                            <Row>
-                                <Col>
-                                    <Image className={styles.image2} src={this.state.avatar} rounded />
-                                </Col>
-                                <Col>
-                                <ListGroup>
-                                    <ListGroup.Item>{this.state.pseudo}</ListGroup.Item>
-                                    <ListGroup.Item>{this.state.points} points</ListGroup.Item>
-                                    <ListGroup.Item>Rank : {this.state.rank}</ListGroup.Item>
-                                </ListGroup>
-                                </Col>
-                            </Row>
-                            </Container>
-                        </Card.Text>
-                        </Card.Body>
-                    </Card>
-                </Row>
- 
-                <Row style={{paddingTop : "15px"}}>
+                <Row className={styles.main_row} style={{paddingTop : "15px"}}>
                     <Col>
                         <Card border="secondary" style={{ width: '100%', fontSize: "14px"}}>
                             <Graphe/>
