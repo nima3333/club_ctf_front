@@ -132,7 +132,7 @@
     align-items: center;
     justify-content: right;
     font-size: 1.5rem;
-    padding-right: 20px;
+    padding-right: 15px;
     padding-left: 10px;
 }
 
@@ -158,7 +158,7 @@ padding: 2vw;;
 }
 
 .info_card{
-    width: 22rem;
+    width: auto;
 }
 
 .info_card_title{
@@ -169,4 +169,8 @@ padding: 2vw;;
     width:100%;
     margin:auto;
     margin-top:1rem;
+}
+
+.card_title{
+    font-size: 1.5rem;
 }
