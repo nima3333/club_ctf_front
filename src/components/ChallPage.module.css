@@ -1,0 +1,34 @@
+.center {
+    margin: auto;
+}
+
+.full_width{
+    width:100%;
+}
+
+.main_row{
+    width:100%;
+    margin:auto;
+    margin-top:1rem;
+}
+
+.info_card{
+    width: 22rem;
+}
+
+.info_card_title{
+    font-size: 0.9rem;
+}
+
+.main_card{
+    width:100%;
+    margin:auto;
+}
+
+.card_title{
+    font-size: 1.5rem;
+}
+
+.vertical_center{
+    margin: auto; /* eh oui, tout bêtement */
+}

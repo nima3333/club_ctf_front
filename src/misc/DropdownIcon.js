@@ -41,8 +41,10 @@ class AvatarMenu extends React.Component {
                 alt="React Bootstrap logo"
               />        </DropdownToggle>
         <DropdownMenu left>
+        {/*
             <DropdownItem  tag={Link} to="/lol">Test</DropdownItem>
             <DropdownItem divider/>
+         */}
             <DropdownItem onClick={this.props.signOut} to="/">Logout</DropdownItem>
         </DropdownMenu>
       </Dropdown>
