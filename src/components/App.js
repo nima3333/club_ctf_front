@@ -14,9 +14,36 @@ import TopNavBar from'./TopNavBar'
 import ChallPage from './ChallPage'
 
 class App extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      isAuthenticated: true,
+      challenge: false,
+      width: 0,
+      height: 0
+    };
+    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+  }
+  
+  componentDidMount() {
+    this.updateWindowDimensions();
+    window.addEventListener('resize', this.updateWindowDimensions);
+  }
+  
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateWindowDimensions);
+  }
+  
+  updateWindowDimensions() {
+    this.setState({ width: window.innerWidth, height: window.innerHeight });
+  }  
+  
   state = {
     isAuthenticated: true,
-    challenge: false
+    challenge: false,
+    width: 0,
+    height: 0
   }
 
   authenticate = () => {
@@ -60,22 +87,20 @@ class App extends Component {
     if (this.state.isAuthenticated){
       return (
           <div className={`App ${styles.aaa}`}>
-              <Suspense fallback={<div>Chargement...</div>}>
-                <TopNavBar signOut={this.signout}/>
-              </Suspense>
+            <TopNavBar signOut={this.signout}/>
             <div className={styles.box}>
-              <Suspense fallback={<div>Chargement...</div>}>
                 <SideNavBar changeChallenge={this.changeChallenge}/>
-              </Suspense>
-                <Switch>
-                  <Route path="/" exact component={ChallPage} />
-                  <Route path="/challenges" exact render={this.ChallengePage}/>}
-                  <Route path="/dashboard" component={Dashboard} />
-                  <Route path="/hall_fame" component={HallOfFame} />
-                  <Route path="/wiki" component={Wiki} />
-                  <Route path="/hall_shame" component={HallOfShame} />
-                  <Route path="/events" component={Events} />
-                </Switch>
+                <div className={styles.scrollable_area} style={{height: `${this.state.height-64}px`}}>
+                  <Switch>
+                    <Route path="/" exact component={ChallPage} />
+                    <Route path="/challenges" exact render={this.ChallengePage}/>}
+                    <Route path="/dashboard" component={Dashboard} />
+                    <Route path="/hall_fame" component={HallOfFame} />
+                    <Route path="/wiki" component={Wiki} />
+                    <Route path="/hall_shame" component={HallOfShame} />
+                    <Route path="/events" component={Events} />
+                  </Switch>
+                </div>
             </div>
           </div>
       )}

@@ -58,6 +58,17 @@ class Dashboard extends Component {
         <div className={`Dashboard  ${styles.main_div}`}>
             <Container>
                 <Row>
+                    <Col>
+                        <Image className={styles.image2} src={this.state.avatar} rounded />
+                    </Col>
+                    <Col>
+                        
+                    </Col>
+                </Row>
+
+
+
+                <Row>
                     <Card border="secondary" style={{ width: '100%', fontSize: "14px"}}>
                         <Card.Body>
                         <Card.Title>moi</Card.Title>

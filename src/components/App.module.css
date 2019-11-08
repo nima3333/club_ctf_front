@@ -33,4 +33,10 @@
 
 html, body {
   overflow-x: hidden;
+  overflow: hidden; 
+}
+
+.scrollable_area{
+  overflow-y: scroll;
+  width: 100%;
 }
