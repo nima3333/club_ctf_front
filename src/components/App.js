@@ -12,6 +12,7 @@ import Wiki from "./Wiki"
 import Public from'./publicPage'
 import TopNavBar from'./TopNavBar'
 import ChallPage from './ChallPage'
+import {withRouter} from 'react-router-dom';
 
 class App extends Component {
 
@@ -83,7 +84,11 @@ class App extends Component {
     }
   }
 
+  
+
   render() {
+    const SideBar = withRouter(props => <SideNavBar {...props}/>);
+
     if (this.state.isAuthenticated){
       return (
           <div className={`App ${styles.aaa}`}>
