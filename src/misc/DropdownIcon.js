@@ -40,12 +40,12 @@ class AvatarMenu extends React.Component {
                 className={`d-inline-block align-top ${styles.icon}`}
                 alt="React Bootstrap logo"
               />        </DropdownToggle>
-        <DropdownMenu left>
+        <DropdownMenu left className={styles.menu}>
         {/*
             <DropdownItem  tag={Link} to="/lol">Test</DropdownItem>
             <DropdownItem divider/>
          */}
-            <DropdownItem onClick={this.props.signOut} to="/">Logout</DropdownItem>
+            <DropdownItem style={{backgroundColor: "#222222", color:"white"}} onClick={this.props.signOut} to="/">Logout</DropdownItem>
         </DropdownMenu>
       </Dropdown>
 

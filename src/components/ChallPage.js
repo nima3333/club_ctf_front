@@ -19,7 +19,7 @@ class ChallPage extends Component {
             <Container fluid="true">
                 <Row className={styles.main_row}>
                     <Col>
-                    <Card border="success" className={styles.info_card}>
+                    <Card bg="dark" text="white" border="success" className={styles.info_card}>
                         <Card.Body>
                             <Card.Title className={styles.info_card_title} style={{color: "green"}}>Difficulté</Card.Title>
                             <Card.Text>
@@ -36,9 +36,9 @@ class ChallPage extends Component {
                     </Card>
                     </Col>
                     <Col>
-                    <Card border="info" className={styles.info_card}>
+                    <Card bg="dark" text="white" className={styles.info_card} style={{borderColor:"red" }}>
                         <Card.Body>
-                            <Card.Title className={styles.info_card_title} style={{color: "blue"}}>Validations</Card.Title>
+                            <Card.Title className={styles.info_card_title} style={{color: "red"}}>Validations</Card.Title>
                             <Card.Text className={styles.card_title}>
                                 18
                             </Card.Text>
@@ -46,9 +46,9 @@ class ChallPage extends Component {
                     </Card>
                     </Col>
                     <Col>
-                    <Card className={styles.info_card} style={{borderColor:"purple" }}>
+                    <Card bg="dark" text="white" className={styles.info_card} style={{borderColor:"yellow" }}>
                         <Card.Body>
-                            <Card.Title className={styles.info_card_title} style={{color: "purple"}}>Auteur(s)</Card.Title>
+                            <Card.Title className={styles.info_card_title} style={{color: "yellow"}}>Auteur(s)</Card.Title>
                             <Card.Text className={styles.card_title}>
                                 JackPepper, T2Lab
                             </Card.Text>
@@ -56,7 +56,7 @@ class ChallPage extends Component {
                     </Card>
                     </Col>
                     <Col>
-                    <Card className={styles.info_card} style={{borderColor:"grey" }}>
+                    <Card bg="dark" text="white" className={styles.info_card} style={{borderColor:"grey" }}>
                         <Card.Body>
                             <Card.Title className={styles.info_card_title} style={{color: "grey"}}>Récompense</Card.Title>
                             <Card.Text className={styles.card_title}>
@@ -67,7 +67,7 @@ class ChallPage extends Component {
                     </Col>
                 </Row>
                 <Row className={styles.main_row}>
-                    <Card className={styles.main_card}>
+                    <Card bg="dark" text="white" className={styles.main_card}>
                         <Card.Header className={styles.card_title}>Enoncé</Card.Header>
                         <Card.Body>
                             <Card.Text>
@@ -78,12 +78,12 @@ class ChallPage extends Component {
                     </Card>
                 </Row>
                 <Row className={styles.main_row}>
-                    <Card className={styles.main_card}>
+                    <Card bg="dark" text="white" className={styles.main_card}>
                         <Card.Header className={styles.card_title}>Valider le challenge</Card.Header>
                         <Card.Body>
                             <Card.Text>
                                 Saisir le mot de passe
-                                <Form.Control type="text" placeholder="" />
+                                <Form.Control style={{backgroundColor:"#444444", color:"white"}} type="text" placeholder="" />
                             </Card.Text>
                             <Button variant="primary">Valider</Button>
                         </Card.Body>

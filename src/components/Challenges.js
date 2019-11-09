@@ -101,7 +101,7 @@ class Challenges extends Component {
     } else if (x < 3500) {
         return 'danger';
     } else {
-        return 'dark';
+        return 'secondary';
     }
   }
 
@@ -114,7 +114,7 @@ class Challenges extends Component {
                     <Col>
                         {this.challs.map(chall => (
                                 <>
-                                <Card border="secondary" style={{ width: '100%', fontSize: "14px"}}>
+                                <Card bg="dark" text="white" border="secondary" style={{ width: '100%', fontSize: "14px"}}>
                                     <Card.Header>
                                         <div className={styles.badge}>
                                             <div className={`${styles.title} ${styles.badge} `}>
@@ -142,7 +142,7 @@ class Challenges extends Component {
                     </Col>
 
                     <Col>
-                        <Card border="secondary" text="black" style={{ width: '100%' }}>
+                        <Card bg="dark" text="white" border="secondary" style={{ width: '100%' }}>
                             <Card.Header>{this.props.chall}</Card.Header>
                             <Card.Body>
                                 {this.levels.map(level => (

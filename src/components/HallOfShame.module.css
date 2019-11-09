@@ -7,3 +7,8 @@
     border-radius: 15px;
     border: solid;
 }
+
+.dark{
+    background-color:#303030;
+    color:white;
+}

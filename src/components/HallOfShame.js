@@ -24,7 +24,7 @@ class HallOfShame extends Component {
       .then(json => this.setState({
         data : json.map(item => {
           return(
-            <Jumbotron className={styles.rounded}> 
+            <Jumbotron className={styles.rounded} className={styles.dark}> 
               <h2>{item.title}</h2>
               <h3>{item.userId}</h3>
               <p>{item.body}</p>

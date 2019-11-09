@@ -59,7 +59,7 @@ class Dashboard extends Component {
             <Container fluid="true">
                 <Row className={styles.main_row}>
                     <Col>
-                        <Card border="info" className={styles.info_card}>
+                        <Card bg="dark" className={styles.info_card}>
                                 <Card.Body>
                                     <Card.Text className={styles.card_title}>
                                     <Image className={styles.image2} src={this.state.avatar} rounded />
@@ -69,9 +69,9 @@ class Dashboard extends Component {
                         
                     </Col>
                     <Col>
-                        <Card className={styles.info_card} style={{borderLeftColor:"blue" }}>
+                        <Card bg="dark" text="white" className={styles.info_card} style={{borderLeftColor:"white" }}>
                             <Card.Body>
-                                <Card.Title className={styles.info_card_title} style={{color: "blue"}}>Points</Card.Title>
+                                <Card.Title className={styles.info_card_title} style={{color: "white"}}>Points</Card.Title>
                                 <Card.Text className={styles.card_title}>
                                     {this.state.points}
                                 </Card.Text>
@@ -79,9 +79,9 @@ class Dashboard extends Component {
                         </Card>
                     </Col>
                     <Col>
-                        <Card className={styles.info_card} style={{borderLeftColor:"purple" }}>
+                        <Card bg="dark" text="white" className={styles.info_card} style={{borderLeftColor:"yellow" }}>
                             <Card.Body>
-                                <Card.Title className={styles.info_card_title} style={{color: "purple"}}>Challenges réussis</Card.Title>
+                                <Card.Title className={styles.info_card_title} style={{color: "yellow"}}>Challenges réussis</Card.Title>
                                 <Card.Text className={styles.card_title}>
                                     {this.state.reussis}
                                 </Card.Text>
@@ -89,7 +89,7 @@ class Dashboard extends Component {
                         </Card>
                     </Col>
                     <Col>
-                        <Card className={styles.info_card} style={{borderLeftColor:"grey" }}>
+                        <Card bg="dark" text="white" className={styles.info_card} style={{borderLeftColor:"grey" }}>
                             <Card.Body>
                                 <Card.Title className={styles.info_card_title} style={{color: "grey"}}>Challenges proposés</Card.Title>
                                 <Card.Text className={styles.card_title}>
@@ -99,7 +99,7 @@ class Dashboard extends Component {
                         </Card>
                     </Col>
                     <Col>
-                        <Card className={styles.info_card} style={{borderLeftColor:"red" }}>
+                        <Card bg="dark" text="white" className={styles.info_card} style={{borderLeftColor:"red" }}>
                             <Card.Body>
                                 <Card.Title className={styles.info_card_title} style={{color: "red"}}>Solutions proposées</Card.Title>
                                 <Card.Text className={styles.card_title}>
@@ -118,7 +118,7 @@ class Dashboard extends Component {
                         </Card>
                     </Col>
                     <Col style={{paddingTop: "1rem"}}>
-                        <Card border="secondary" style={{ width: '100%', fontSize: "14px"}}>
+                        <Card bg="dark" border="secondary" style={{ width: '100%', fontSize: "14px"}}>
                             <Col>
                             {this.state.stats.map(stat => (
                                 <Row style={{margin: "1rem"}}>
