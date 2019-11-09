@@ -78,8 +78,10 @@ class Challenges extends Component {
     ];
   }
 
-  
-  
+
+
+    go_to_challenge = (i) => this.props.history.push(`/challenges/${i}`);
+    
 
   get_color_stat(x) {
     if (x < 25) {
@@ -129,7 +131,7 @@ class Challenges extends Component {
                                         Some quick example text to build on the card title and make up the bulk
                                         of the card's content.
                                     </Card.Text>
-                                    <Button variant="primary">Go somewhere</Button>
+                                    <Button onClick={() => this.go_to_challenge(chall.id)} variant="primary">Go somewhere</Button>
                                     </Card.Body>
                                 </Card>
 

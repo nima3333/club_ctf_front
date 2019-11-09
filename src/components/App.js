@@ -92,13 +92,13 @@ class App extends Component {
                 <SideNavBar changeChallenge={this.changeChallenge}/>
                 <div className={styles.scrollable_area} style={{height: `${this.state.height-64}px`}}>
                   <Switch>
-                    <Route path="/" exact component={ChallPage} />
+                    <Route path="/" exact component={Dashboard} />
                     <Route path="/challenges" exact render={this.ChallengePage}/>}
-                    <Route path="/dashboard" component={Dashboard} />
                     <Route path="/hall_fame" component={HallOfFame} />
                     <Route path="/wiki" component={Wiki} />
                     <Route path="/hall_shame" component={HallOfShame} />
                     <Route path="/events" component={Events} />
+                    <Route path="/challenges/:id(\d+)" component={ChallPage} />
                   </Switch>
                 </div>
             </div>

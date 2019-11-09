@@ -9,6 +9,7 @@ class ChallPage extends Component {
     this.state =({
         title: props.title
     })
+    console.dir(this.props.match.params.id)
   }
 
   render() {

@@ -61,7 +61,7 @@ class NavBars extends Component {
               
               <Nav className="mr-auto">
                 <NavItem className="link_container">
-                  <NavLink exact to="/dashboard" className={`nav-link ${styles.topbar_link}`} activeClassName={styles.active}>Dashboard</NavLink>
+                  <NavLink exact to="/" className={`nav-link ${styles.topbar_link}`} activeClassName={styles.active}>Dashboard</NavLink>
                 </NavItem>
                 {/*
                 <NavItem>
