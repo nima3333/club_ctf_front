@@ -152,7 +152,7 @@ class Challenges extends Component {
                                                 <p> {level.name} </p>
                                             </Col>
                                             <Col md="auto" style={{width:"100%", display: "flex", justifyContent: "center", flexDirection: "column"}}>
-                                                <ProgressBar variant={this.get_color_stat(level.value)} label={level.value} now={level.value}/>
+                                                <ProgressBar className={styles.dark_progress_bar} variant={this.get_color_stat(level.value)} label={level.value} now={level.value}/>
                                             </Col>
                                         </Row>
                                     </Container>

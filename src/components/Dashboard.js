@@ -126,7 +126,7 @@ class Dashboard extends Component {
                                         {stat.name}
                                     </span>
                                     <div className={`${styles.progress_bar}`}>
-                                        <ProgressBar now={stat.value} variant={this.get_color_stat(stat.value)}/>
+                                        <ProgressBar className={styles.dark_progress_bar} now={stat.value} variant={this.get_color_stat(stat.value)}/>
                                     </div>
                                 </Row>
                             ))}

@@ -175,3 +175,7 @@ padding: 2vw;;
 .card_title{
     font-size: 1.5rem;
 }
+
+.dark_progress_bar{
+    background-color: #444444;
+}
