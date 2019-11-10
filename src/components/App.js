@@ -59,6 +59,8 @@ class App extends Component {
     this.setState({
       isAuthenticated: false
     })
+    // Reset the url
+    this.props.history.push('/')
     //setTimeout(cb, 100)
   }
 
@@ -110,6 +112,10 @@ class App extends Component {
           </div>
       )}
     else{
+      //if the url is ./ , change it
+      if(this.props.location.pathname !== "/"){
+        this.props.history.push('/')
+      }
       return(
         <Suspense fallback={<div>Chargement...</div>}>
           <Public authenticate = {this.authenticate}/>
@@ -121,4 +127,4 @@ class App extends Component {
 
 
 
-export default App;
+export default withRouter(App);
