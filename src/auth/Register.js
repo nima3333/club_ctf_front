@@ -10,6 +10,7 @@ class Register extends Component {
             email: "",
             password: "",
             confirmPassword: "",
+            phone:"",
             pseudo: false,
             show_register_button: false,
         };
@@ -78,6 +79,10 @@ class Register extends Component {
               <Form.Control onChange={this.handleChange} id="confirmPassword" type="password" />
           </Form.Group>
 
+          <Form.Group>
+                <Form.Label>Téléphone</Form.Label>
+                <Form.Control onChange={this.handleChange} id="phone" type="phone" />
+          </Form.Group>
 
           </Modal.Body>
           <Modal.Footer>

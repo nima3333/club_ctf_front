@@ -111,12 +111,14 @@ class Public extends React.Component {
             <Nav.Link style={{color: "white"}} onClick={this.showRegister}>S'inscrire</Nav.Link>
           </Nav>
         </Navbar>
-        <Jumbotron className={styles.center_div}>
-        <h1>Inscris toi dès maintenant</h1>
-        <p>Le club CTF est le club de sécurité informatique de Télécom Paris. Tout au long de l’année, on organise des évènements pour initier les néophytes aux fondamentaux du hacking, mais aussi pour développer les skills des plus expérimentés.</p>
-        <p>On a mis en place une plateforme qui te permettra de mettre tes connaissances à l’épreuve dans divers challenges, aussi appelés Capture The Flag (CTF). </p>
-        <p>N’hésite plus, que tu sois débutant ou que t’aies déjà hacké la NSA, le club CTF n’attend que toi !</p>
-        </Jumbotron>
+        <div className={styles.center_div}>
+          <Jumbotron className={styles.jumbotron}>
+          <h1>Inscris toi dès maintenant</h1>
+          <p>Le club CTF est le club de sécurité informatique de Télécom Paris. Tout au long de l’année, on organise des évènements pour initier les néophytes aux fondamentaux du hacking, mais aussi pour développer les skills des plus expérimentés.</p>
+          <p>On a mis en place une plateforme qui te permettra de mettre tes connaissances à l’épreuve dans divers challenges, aussi appelés Capture The Flag (CTF). </p>
+          <p>N’hésite plus, que tu sois débutant ou que t’aies déjà hacké la NSA, le club CTF n’attend que toi !</p>
+          </Jumbotron>
+        </div>
       </div>
     )
   }

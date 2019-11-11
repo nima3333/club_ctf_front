@@ -50,7 +50,7 @@ class Login extends Component {
                 <Modal.Body>
                 <Form>
                     <Form.Group controlId="formBasicEmail">
-                        <Form.Label>Adresse email</Form.Label>
+                        <Form.Label>Pseudo</Form.Label>
                         <Form.Control onChange={this.handleChange} type="email" />
                     </Form.Group>
 

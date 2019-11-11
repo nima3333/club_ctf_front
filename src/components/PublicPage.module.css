@@ -62,3 +62,13 @@
         font-size: 9vh;
     }
 }
+
+.center_div{
+    background-color: #333333;
+    height: 100vh;
+}
+
+.jumbotron{
+    background-color: #333333;
+    color: honeydew;
+}

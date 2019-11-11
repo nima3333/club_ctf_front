@@ -63,11 +63,9 @@ class NavBars extends Component {
                 <NavItem className="link_container">
                   <NavLink exact to="/" className={`nav-link ${styles.topbar_link}`} activeClassName={styles.active}>Dashboard</NavLink>
                 </NavItem>
-                {/*
                 <NavItem>
                   <NavLink exact to="/hall_fame" className={`nav-link ${styles.topbar_link}`} activeClassName={styles.active}>Hall of Fame</NavLink>
                 </NavItem>
-                */}
                 <NavItem>
                   <NavLink exact to="/hall_shame" className={`nav-link ${styles.topbar_link}`} activeClassName={styles.active}>Hall of Shame</NavLink>
                 </NavItem>
