@@ -66,7 +66,7 @@ class Dashboard extends Component {
                                     </Card.Text>
                                 </Card.Body>
                         </Card>
-                        
+
                     </Col>
                     <Col>
                         <Card bg="dark" text="white" className={styles.info_card} style={{borderLeftColor:"white" }}>
