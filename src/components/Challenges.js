@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, {Component} from 'react';
 import styles from './Challenges.module.css';
-import { Media, Button } from 'reactstrap';
+import { Button } from 'reactstrap';
 import { ProgressBar, Card , Badge, Col, Row, Container} from 'react-bootstrap';
 
 class Challenges extends Component {

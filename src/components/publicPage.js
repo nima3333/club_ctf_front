@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './PublicPage.module.css'
 import logo from '../logos/logo.png'
-import {Navbar, Nav, Jumbotron, Col, Container, Row} from 'react-bootstrap'
+import {Navbar, Nav, Jumbotron} from 'react-bootstrap'
 import Login from '../auth/Login'
 import Register from '../auth/Register'
 import Forgot from '../auth/Forgot'

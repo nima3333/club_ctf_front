@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import styles from './ChallPage.module.css';
-import { Media } from 'reactstrap';
 import { ProgressBar, Card , Button, Form, Col, Row, Container} from 'react-bootstrap';
 
 class ChallPage extends Component {

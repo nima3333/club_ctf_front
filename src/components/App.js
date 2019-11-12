@@ -19,7 +19,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isAuthenticated: false,
+      isAuthenticated: true,
       challenge: false,
       width: 0,
       height: 0
@@ -89,8 +89,6 @@ class App extends Component {
   
 
   render() {
-    const SideBar = withRouter(props => <SideNavBar {...props}/>);
-
     if (this.state.isAuthenticated){
       return (
           <div className={`App ${styles.aaa}`}>

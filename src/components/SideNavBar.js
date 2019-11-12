@@ -1,7 +1,7 @@
 import styles from './SideNavBar.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, {Component} from 'react';
-import {Navbar, NavItem, Nav, OverlayTrigger} from 'react-bootstrap'
+import {Navbar, NavItem, Nav} from 'react-bootstrap'
 import { NavLink } from 'react-router-dom';
 import prog from '../icons/001-curly-brackets.png';
 import terminal from '../icons/003-terminal-windows.png'
@@ -52,7 +52,7 @@ class NavBars extends Component {
   render() {
     this.itemObjects = items.map(item => {
       let active_class = ""
-      if(item.link === this.state.active && this.props.location.pathname=="/challenges"){
+      if(item.link === this.state.active && this.props.location.pathname === "/challenges"){
         active_class = styles.active_style
       }
       return(

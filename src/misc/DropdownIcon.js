@@ -2,7 +2,6 @@ import React from 'react';
 import logo from '../logos/hacker.jpg'
 import styles from './DropdownIcon.module.css'
 import { Dropdown, DropdownMenu, DropdownToggle, DropdownItem} from 'reactstrap';
-import { Link } from 'react-router-dom';
 
 class AvatarMenu extends React.Component {
   constructor() {
