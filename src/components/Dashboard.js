@@ -58,17 +58,20 @@ class Dashboard extends Component {
         <div className={`Dashboard  ${styles.main_div}`}>
             <Container fluid="true">
                 <Row className={styles.main_row}>
-                    <Col>
+                    <Col xs={12} md={12} lg={"auto"}>
                         <Card bg="dark" className={styles.info_card}>
-                                <Card.Body>
-                                    <Card.Text className={styles.card_title}>
-                                    <Image className={styles.image2} src={this.state.avatar} rounded />
-                                    </Card.Text>
-                                </Card.Body>
+                        <Card.Img variant="top" className={styles.image2} src={this.state.avatar} rounded/>
+                        {/*}                        
+                        <Card.Body>
+                            <Card.Text className={styles.card_title}>
+                            <Image className={styles.image2} src={this.state.avatar} rounded />
+                            </Card.Text>
+                        </Card.Body>
+                        {*/}
                         </Card>
 
                     </Col>
-                    <Col>
+                    <Col sm>
                         <Card bg="dark" text="white" className={styles.info_card} style={{borderLeftColor:"white" }}>
                             <Card.Body>
                                 <Card.Title className={styles.info_card_title} style={{color: "white"}}>Points</Card.Title>
@@ -78,7 +81,7 @@ class Dashboard extends Component {
                             </Card.Body>
                         </Card>
                     </Col>
-                    <Col>
+                    <Col sm>
                         <Card bg="dark" text="white" className={styles.info_card} style={{borderLeftColor:"yellow" }}>
                             <Card.Body>
                                 <Card.Title className={styles.info_card_title} style={{color: "yellow"}}>Challenges réussis</Card.Title>
@@ -88,7 +91,7 @@ class Dashboard extends Component {
                             </Card.Body>
                         </Card>
                     </Col>
-                    <Col>
+                    <Col sm>
                         <Card bg="dark" text="white" className={styles.info_card} style={{borderLeftColor:"grey" }}>
                             <Card.Body>
                                 <Card.Title className={styles.info_card_title} style={{color: "grey"}}>Challenges proposés</Card.Title>
@@ -98,7 +101,7 @@ class Dashboard extends Component {
                             </Card.Body>
                         </Card>
                     </Col>
-                    <Col>
+                    <Col sm>
                         <Card bg="dark" text="white" className={styles.info_card} style={{borderLeftColor:"red" }}>
                             <Card.Body>
                                 <Card.Title className={styles.info_card_title} style={{color: "red"}}>Solutions proposées</Card.Title>
