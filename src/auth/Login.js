@@ -8,7 +8,7 @@ class Login extends Component {
         super(props);
         this.state = {
             modal_state : this.props.modal_state,
-            email: null,
+            pseudo: null,
             password: null,
             remember: false,
             show_login_button: false,
@@ -49,9 +49,9 @@ class Login extends Component {
                 </Modal.Header>
                 <Modal.Body>
                 <Form>
-                    <Form.Group controlId="formBasicEmail">
+                    <Form.Group controlId="formBasicPseudo">
                         <Form.Label>Pseudo</Form.Label>
-                        <Form.Control onChange={this.handleChange} type="email" />
+                        <Form.Control onChange={this.handleChange} type="pseudo" />
                     </Form.Group>
 
                     <Form.Group controlId="formBasicPassword">
