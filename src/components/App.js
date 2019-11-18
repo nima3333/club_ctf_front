@@ -14,6 +14,8 @@ import TopNavBar from'./TopNavBar'
 import ChallPage from './ChallPage'
 import {withRouter} from 'react-router-dom';
 
+require('dotenv').config();
+
 class App extends Component {
 
   constructor(props) {
