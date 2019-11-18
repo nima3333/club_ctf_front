@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {Form, Modal, Button, Spinner} from 'react-bootstrap'
 import {userService} from '../auth/Authentification'
+import { stat } from 'fs';
 
 class Login extends Component {
 
@@ -20,7 +21,7 @@ class Login extends Component {
 
     handleChange = (event) => {
         this.setState({
-          [event.target.type]:event.target.value,
+          [event.target.id]:event.target.value,
         })
     }
     
@@ -38,7 +39,7 @@ class Login extends Component {
         this.setState({
             show_login_button: true,
         })
-        userService.login(this.state.email, this.state.password, this.props.authenticate)
+        userService.login(this.state.pseudo, this.state.password, this.props.authenticate)
       }
     
     render() {
@@ -51,12 +52,12 @@ class Login extends Component {
                 <Form>
                     <Form.Group controlId="formBasicPseudo">
                         <Form.Label>Pseudo</Form.Label>
-                        <Form.Control onChange={this.handleChange} type="pseudo" />
+                        <Form.Control onChange={this.handleChange} id="pseudo" />
                     </Form.Group>
 
                     <Form.Group controlId="formBasicPassword">
                         <Form.Label>Mot de passe</Form.Label>
-                        <Form.Control onChange={this.handleChange} type="password" />
+                        <Form.Control onChange={this.handleChange} id="password" type="password" />
                     </Form.Group>
                     {/*
                     <Form.Group controlId="formBasicCheckbox">
