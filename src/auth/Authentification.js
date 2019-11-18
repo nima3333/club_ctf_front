@@ -1,3 +1,5 @@
+var env = require('../misc/env.js');
+
 export const userService = {
     login,
     logout,
@@ -20,11 +22,20 @@ function login(username, password, auth) {
       
       xhr.addEventListener("readystatechange", function () {
         if (this.readyState === 4) {
-          console.log(this.responseText);
+            if (this.status === 200) {
+                // TODO : Lorsque log out, virer le localstorage
+                var res = JSON.parse(this.responseText);          
+                localStorage.setItem('jwt', res.jwt);
+                var jwt = localStorage.getItem('jwt');
+                auth();
+            } else {
+                // TODO : afficher messsage erreur
+                console.log("Erreur de login");
+            }
         }
       });
       
-      xhr.open("POST", /*process.env.SERV_URL*/ "http://192.168.99.100:8082/" + "api/v1/auth/login.php");
+      xhr.open("POST", env.server_url + "api/v1/auth/login.php");
       xhr.setRequestHeader("Content-Type", "application/json");
       xhr.setRequestHeader("Authorization", "Basic Q1RGQVBJR0VORVJJQzpVYTIyTVR2UW9Xa0Vld1pXTTMyaERNOGVWRGZlUFI=");
       xhr.setRequestHeader("Accept", "*/*");

@@ -14,8 +14,6 @@ import TopNavBar from'./TopNavBar'
 import ChallPage from './ChallPage'
 import {withRouter} from 'react-router-dom';
 
-require('dotenv').config();
-
 class App extends Component {
 
   constructor(props) {
@@ -51,6 +49,7 @@ class App extends Component {
 
   authenticate = () => {
     this.setState({
+      // TODO : charger dashboard
       isAuthenticated: true
     })
     console.log(this.state)
