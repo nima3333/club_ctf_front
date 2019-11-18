@@ -24,7 +24,7 @@ function login(username, password, auth) {
         }
       });
       
-      xhr.open("POST", process.env.SERV_URL + "api/v1/auth/login.php");
+      xhr.open("POST", /*process.env.SERV_URL*/ "http://192.168.99.100:8082/" + "api/v1/auth/login.php");
       xhr.setRequestHeader("Content-Type", "application/json");
       xhr.setRequestHeader("Authorization", "Basic Q1RGQVBJR0VORVJJQzpVYTIyTVR2UW9Xa0Vld1pXTTMyaERNOGVWRGZlUFI=");
       xhr.setRequestHeader("Accept", "*/*");
