@@ -11,7 +11,7 @@ function sleep (time) {
     return new Promise((resolve) => setTimeout(resolve, time));
 }
 
-function login(username, password, auth) {
+function login(username, password, auth, setError) {
     var data = JSON.stringify({
         "pseudo": username,
         "password": password
@@ -28,6 +28,7 @@ function login(username, password, auth) {
                 auth();
             } else {
                 // TODO : afficher messsage erreur
+                setError()
                 console.log("Erreur de login");
             }
         }
@@ -39,7 +40,7 @@ function login(username, password, auth) {
       xhr.setRequestHeader("Accept", "*/*");
       xhr.setRequestHeader("Cache-Control", "no-cache");
       xhr.setRequestHeader("cache-control", "no-cache");
-      
+      xhr.timeout = 2000;
       xhr.send(data);
 }
 

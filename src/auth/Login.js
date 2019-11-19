@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Form, Modal, Button, Spinner} from 'react-bootstrap'
+import {Form, Modal, Button, Spinner, Alert} from 'react-bootstrap'
 import {userService} from '../auth/Authentification'
 
 class Login extends Component {
@@ -12,6 +12,7 @@ class Login extends Component {
             password: null,
             remember: false,
             show_login_button: false,
+            error: false,
         };
         this.State = this.props.State
       }
@@ -38,23 +39,37 @@ class Login extends Component {
         this.setState({
             show_login_button: true,
         })
-        userService.login(this.state.pseudo, this.state.password, this.props.authenticate)
+        userService.login(this.state.pseudo, this.state.password, this.props.authenticate, this.setError)
       }
+
+    setError = () => {
+        this.setState({
+            show_login_button: false,
+            error: true
+        })
+    }
     
     render() {
+        var alert = ""
+        if(this.state.error === true){
+            alert = <Alert variant={"danger"}>
+                        Problème d'authentification
+                    </Alert>
+        }
         return(
             <Modal show={this.props.modal_state === this.State.LOGIN} onHide={this.closeModal}>
                 <Modal.Header closeButton>
                     <Modal.Title>Login</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
+                {alert}
                 <Form>
-                    <Form.Group controlId="formBasicPseudo">
+                    <Form.Group>
                         <Form.Label>Pseudo</Form.Label>
                         <Form.Control onChange={this.handleChange} id="pseudo" />
                     </Form.Group>
 
-                    <Form.Group controlId="formBasicPassword">
+                    <Form.Group>
                         <Form.Label>Mot de passe</Form.Label>
                         <Form.Control onChange={this.handleChange} id="password" type="password" />
                     </Form.Group>
