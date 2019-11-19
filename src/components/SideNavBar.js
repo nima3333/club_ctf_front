@@ -18,7 +18,7 @@ const items = [
     image:prog
   },
   {
-    link:"Euh",
+    link:"Web",
     image:terminal
   },
   {

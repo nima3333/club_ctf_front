@@ -19,7 +19,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isAuthenticated: true,
+      isAuthenticated: false,
       challenge: false,
       width: 0,
       height: 0

@@ -23,10 +23,8 @@ function login(username, password, auth) {
       xhr.addEventListener("readystatechange", function () {
         if (this.readyState === 4) {
             if (this.status === 200) {
-                // TODO : Lorsque log out, virer le localstorage
                 var res = JSON.parse(this.responseText);          
                 localStorage.setItem('jwt', res.jwt);
-                var jwt = localStorage.getItem('jwt');
                 auth();
             } else {
                 // TODO : afficher messsage erreur
@@ -45,30 +43,42 @@ function login(username, password, auth) {
       xhr.send(data);
 }
 
-function register(username, password, pseudo, auth) {
-    const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
-    };
+function register(mail, password, confirmPassword, pseudo, phone, auth) {
 
-    return sleep(500).then(() => {
-        fetch(`/users/authenticate`, requestOptions)
-        .then(user => {
-            auth()
-            return;
-            // login successful if there's a user in the response
-            if (user) {
-                // store user details and basic auth credentials in local storage 
-                // to keep user logged in between page refreshes
-                user.authdata = window.btoa(username + ':' + password);
-                localStorage.setItem('user', JSON.stringify(user));
-                
+    if (password !== confirmPassword) {
+        // FIXME : Message d'erreur
+        console.log("Les mots de passe ne correspondent pas");
+    } else {
+        var data = JSON.stringify({
+            "pseudo": pseudo,
+            "hash": password,
+            "mail": mail,
+            "phone": phone
+          });
+          
+          var xhr = new XMLHttpRequest();
+          xhr.withCredentials = true;
+          
+          xhr.addEventListener("readystatechange", function () {
+            if (this.readyState === 4) {
+                if (this.status === 200) {
+                    login(pseudo, password, auth);
+                } else {
+                    // FIXME : afficher messsage erreur
+                    console.log("Impossible de créer le compte");
+                }
             }
-
-            return user;
-        });
-    })
+          });
+          
+          xhr.open("POST", env.server_url + "api/v1/user/create.php");
+          xhr.setRequestHeader("Content-Type", "application/json");
+          xhr.setRequestHeader("Authorization", "Basic Q1RGQVBJR0VORVJJQzpVYTIyTVR2UW9Xa0Vld1pXTTMyaERNOGVWRGZlUFI=");
+          xhr.setRequestHeader("Accept", "*/*");
+          xhr.setRequestHeader("Cache-Control", "no-cache");
+          xhr.setRequestHeader("cache-control", "no-cache");
+          
+          xhr.send(data);
+    }
 }
 
 function forgot(email) {
@@ -85,6 +95,6 @@ function forgot(email) {
 
 function logout() {
     // remove user from local storage to log user out
-    localStorage.removeItem('user');
+    localStorage.removeItem('jwt');
 }
 

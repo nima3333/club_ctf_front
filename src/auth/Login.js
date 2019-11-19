@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import {Form, Modal, Button, Spinner} from 'react-bootstrap'
 import {userService} from '../auth/Authentification'
-import { stat } from 'fs';
 
 class Login extends Component {
 

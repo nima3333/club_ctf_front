@@ -48,7 +48,7 @@ class Register extends Component {
       this.setState({
         show_register_button: true,
       })
-      userService.register(this.state.email, this.state.password, this.state.pseudo, this.props.authenticate)
+      userService.register(this.state.email, this.state.password, this.state.confirmPassword, this.state.pseudo, this.state.phone, this.props.authenticate)
     }
     
     render() {
