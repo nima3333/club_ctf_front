@@ -27,9 +27,7 @@ function login(username, password, auth, setError) {
                 localStorage.setItem('jwt', res.jwt);
                 auth();
             } else {
-                // TODO : afficher messsage erreur
-                setError()
-                console.log("Erreur de login");
+                setError();
             }
         }
       });
@@ -44,11 +42,12 @@ function login(username, password, auth, setError) {
       xhr.send(data);
 }
 
-function register(mail, password, confirmPassword, pseudo, phone, auth) {
+function register(mail, password, confirmPassword, pseudo, phone, auth, setError) {
 
+    //TODO: verification extensive côté client des différents champs (non vides etc)
+    //TODO: verification en directe de la dispo du pseudo / email ?
     if (password !== confirmPassword) {
-        // FIXME : Message d'erreur
-        console.log("Les mots de passe ne correspondent pas");
+        setError("Les mots de passe ne correspondent pas");
     } else {
         var data = JSON.stringify({
             "pseudo": pseudo,
@@ -65,8 +64,7 @@ function register(mail, password, confirmPassword, pseudo, phone, auth) {
                 if (this.status === 200) {
                     login(pseudo, password, auth);
                 } else {
-                    // FIXME : afficher messsage erreur
-                    console.log("Impossible de créer le compte");
+                    setError("Impossible de créer le compte");
                 }
             }
           });
@@ -77,7 +75,7 @@ function register(mail, password, confirmPassword, pseudo, phone, auth) {
           xhr.setRequestHeader("Accept", "*/*");
           xhr.setRequestHeader("Cache-Control", "no-cache");
           xhr.setRequestHeader("cache-control", "no-cache");
-          
+          xhr.timeout = 2000;
           xhr.send(data);
     }
 }

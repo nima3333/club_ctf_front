@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Form, Modal, Button, Spinner} from 'react-bootstrap'
+import {Form, Modal, Button, Spinner, Alert} from 'react-bootstrap'
 import {userService} from './Authentification'
 
 class Register extends Component {
@@ -13,6 +13,7 @@ class Register extends Component {
             phone:"",
             pseudo: false,
             show_register_button: false,
+            error: false,
         };
         this.State = this.props.State
       }
@@ -48,17 +49,31 @@ class Register extends Component {
       this.setState({
         show_register_button: true,
       })
-      userService.register(this.state.email, this.state.password, this.state.confirmPassword, this.state.pseudo, this.state.phone, this.props.authenticate)
+      userService.register(this.state.email, this.state.password, this.state.confirmPassword, this.state.pseudo, this.state.phone, this.props.authenticate, this.setError)
     }
     
+    setError = (string) => {
+      this.setState({
+        show_register_button: false,
+        error: true,
+        error_message: string
+      })
+    }
+
     render() {
+        var alert = ''
+        if(this.state.error === true){
+          alert = <Alert variant={"danger"}>
+                      {this.state.error_message}
+                  </Alert>
+        }
         return(
             <Modal show={this.props.modal_state === this.State.REGISTER} onHide={this.closeModal}>
           <Modal.Header closeButton>
             <Modal.Title>Inscription</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-
+          {alert}
           <Form.Group>
                 <Form.Label>Adresse email</Form.Label>
                 <Form.Control onChange={this.handleChange} id="email" type="email" />
