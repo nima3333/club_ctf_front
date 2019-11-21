@@ -65,8 +65,9 @@ function register(mail, password, confirmPassword, pseudo, phone, auth, setError
           xhr.addEventListener("readystatechange", function () {
             if (this.readyState === 4) {
                 if (this.status === 200) {
-                    login(pseudo, password, auth);
-                } else if (this.status === 404){
+                    // FIXME : Malgré l'appel à login, à la création d'un compte, on reste bloqué avec le bouton valider qui charge
+                    login(pseudo, password, auth, setError);
+                } else if (this.status === 503){
                     setError("Impossible de créer le compte");
                 }
             }

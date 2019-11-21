@@ -12,6 +12,7 @@ class Dashboard extends Component {
     super(props);
     
     var user;
+    var validations;
 
     // User info
     var data = JSON.stringify(false);
@@ -41,13 +42,11 @@ class Dashboard extends Component {
     xhr.withCredentials = true;
     xhr.addEventListener("readystatechange", function () {
         if (this.status === 200) {
-            var validations = JSON.parse(this.responseText)['records'];
-            if (validations === undefined) {
+            if (this.responseText === "No validation found 404 for pseudo") {
                 user.validations = [];
             } else {
-                user.validations = validations;
-            }
-            
+                user.validations = JSON.parse(this.responseText).records;
+            }            
         }
     });
     xhr.open("GET", env.server_url + "api/v1/challenge/read_validations.php", false);
@@ -58,12 +57,50 @@ class Dashboard extends Component {
     xhr.setRequestHeader("cache-control", "no-cache");
     xhr.send(data);
 
-    // TODO : update chall reussis / nb_total_chall par catégorie
+    var challs;
+    data = null;
+    xhr = new XMLHttpRequest();
+    xhr.withCredentials = true;
+    xhr.addEventListener("readystatechange", function () {
+        if (this.readyState === 4) {
+            if (this.status === 200) {
+                challs = JSON.parse(this.responseText);
+            } else if (this.status === 404){
+                // TODO : Afficher message d'erreur
+                console.log("Erreur de chargement des challenges");
+                
+            }
+            
+        }
+    });
+    xhr.open("GET",  env.server_url + "/api/v1/challenge/read_all.php", false);
+    xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem('jwt'));
+    xhr.setRequestHeader("Accept", "*/*");
+    xhr.setRequestHeader("Cache-Control", "no-cache");
+    xhr.setRequestHeader("cache-control", "no-cache");
+    xhr.send(data);
+
+    // TODO : Ajouter autres catégories (une fois fait en back)
+    var total_web = challs.web.length === 0 ? 1 : challs.web.length;
+    var total_crypto = challs.crypto.length === 0 ? 1 : challs.crypto.length;
+    var nb_web = 0;
+    var nb_crypto = 0;
+
+    for (let chall of user.validations) {
+        if (chall.type === "web") {
+            nb_web++;
+        } else if (chall.type === "crypto") {
+            nb_crypto++;
+        }
+    }
+
+    console.log(total_web);
+    
     this.state = {
-        pseudo: user['pseudo'],
+        pseudo: user.pseudo,
         avatar: avatar,
-        points: user['score'],
-        rank: user['rank'],
+        points: user.score,
+        rank: user.rank,
         total_memberf: 12000,
         reussis: user.validations.length,
         solutions: 0,
@@ -71,12 +108,12 @@ class Dashboard extends Component {
         stats: [
             {
               name: "Web",
-              value: 75,
+              value: (nb_web / total_web) * 100,
               color: '#00ff00',
             },
             {
               name: "Crypto",
-              value: 25,
+              value: (nb_crypto / total_crypto) * 100,
               color: '#ff0000',
             },
             {
@@ -96,7 +133,7 @@ class Dashboard extends Component {
   get_color_stat(x) {
     if (x < 25) {
         return 'danger';
-    } else if (x < 50) {
+    } else if (x < 65) {
         return 'warning';
     } else {
         return 'success';
