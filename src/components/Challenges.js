@@ -4,6 +4,8 @@ import styles from './Challenges.module.css';
 import { Button } from 'reactstrap';
 import { ProgressBar, Card , Badge, Col, Row, Container} from 'react-bootstrap';
 
+var env = require('../misc/env.js');
+
 class Challenges extends Component {
   constructor(props) {
     super(props);
@@ -106,6 +108,54 @@ class Challenges extends Component {
   }
 
   render() {
+    var challs;
+    var data = null;
+    var xhr = new XMLHttpRequest();
+    xhr.withCredentials = true;
+    xhr.addEventListener("readystatechange", function () {
+        if (this.readyState === 4) {
+            if (this.status === 200) {
+                challs = JSON.parse(this.responseText);
+            } else {
+                // TODO : Afficher message d'erreur
+                console.log("Erreur de chargement des challenges");
+                
+            }
+            
+        }
+    });
+    xhr.open("GET",  env.server_url + "/api/v1/challenge/read_all.php", false);
+    xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem('jwt'));
+    xhr.setRequestHeader("Accept", "*/*");
+    xhr.setRequestHeader("Cache-Control", "no-cache");
+    xhr.setRequestHeader("cache-control", "no-cache");
+    xhr.send(data);
+
+    this.challs = challs[this.props.chall.toLowerCase()];
+    if (this.challs === undefined) {
+        this.challs = [];
+    } else {
+        // Charger les auteurs associés
+        for (let chall of this.challs) {
+            data = null;
+            xhr = new XMLHttpRequest();
+            xhr.withCredentials = true;
+            xhr.addEventListener("readystatechange", function () {
+                if (this.status === 200) {
+                    chall.author =  JSON.parse(this.responseText)['authors'];
+                } else {
+                    // TODO : Afficher message d'erreur
+                    console.log("Tous les auteurs n'ont pas pu être chargés");                    
+                }
+            });
+            xhr.open("GET", env.server_url + "api/v1/challenge/read.php?idChall=2", false);
+            xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem('jwt'));
+            xhr.setRequestHeader("Accept", "*/*");
+            xhr.setRequestHeader("Cache-Control", "no-cache");
+            xhr.setRequestHeader("cache-control", "no-cache");
+            xhr.send(data);
+        }
+    }
 
     return (
         <div className={`Challenges  ${styles.main_div}`}>
@@ -131,7 +181,7 @@ class Challenges extends Component {
                                         Some quick example text to build on the card title and make up the bulk
                                         of the card's content.
                                     </Card.Text>
-                                    <Button onClick={() => this.go_to_challenge(chall.id)} variant="primary">Go somewhere</Button>
+                                    <Button onClick={() => this.go_to_challenge(chall.idChall)} variant="primary">Go somewhere</Button>
                                     </Card.Body>
                                 </Card>
 

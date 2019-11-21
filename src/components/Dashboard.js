@@ -5,18 +5,42 @@ import avatar from '../icons/007-hacker-icon.jpg';
 import {ProgressBar, Image, Card, Container, Row, Col} from 'react-bootstrap'
 import Graphe from '../misc/LineGraph'
 
+var env = require('../misc/env.js');
+
 class Dashboard extends Component {
   constructor(props) {
     super(props);
+    
+    var user;
+    var data = JSON.stringify(false);
+    var xhr = new XMLHttpRequest();
+    xhr.withCredentials = true;
+    xhr.addEventListener("readystatechange", function () {
+        if (this.readyState === 4) {
+            user = JSON.parse(this.responseText)['records'][0];
+            console.log(this.responseText);
+            
+        }
+    });
+    xhr.open("GET", env.server_url + "api/v1/user/read_current.php", false);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem('jwt'));
+    xhr.setRequestHeader("Accept", "*/*");
+    xhr.setRequestHeader("Cache-Control", "no-cache");
+    xhr.setRequestHeader("cache-control", "no-cache");
+    xhr.send(data);
+
+    // TODO : update chall reussis
+    // TODO : update chall reussis / nb_total_chall par catégorie
     this.state = {
-        pseudo: "Alice_74",
+        pseudo: user['pseudo'],
         avatar: avatar,
-        points: 4500,
-        rank: 12,
+        points: user['score'],
+        rank: user['rank'],
         total_memberf: 12000,
-        reussis: 12,
-        solutions: 1,
-        inventes: 2,
+        reussis: 0,
+        solutions: 0,
+        inventes: 0,
         stats: [
             {
               name: "Web",
