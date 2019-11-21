@@ -12,14 +12,19 @@ class Dashboard extends Component {
     super(props);
     
     var user;
+
+    // User info
     var data = JSON.stringify(false);
     var xhr = new XMLHttpRequest();
     xhr.withCredentials = true;
     xhr.addEventListener("readystatechange", function () {
         if (this.readyState === 4) {
-            user = JSON.parse(this.responseText)['records'][0];
-            console.log(this.responseText);
-            
+            if (this.status === 200) {
+                user = JSON.parse(this.responseText)['records'][0];
+            } else if (this.status === 404){
+                // TODO : Afficher message d'erreur
+                console.log("Impossible de charger les infos utilisateur, veuillez vous authentifier");          
+            }            
         }
     });
     xhr.open("GET", env.server_url + "api/v1/user/read_current.php", false);
@@ -30,7 +35,29 @@ class Dashboard extends Component {
     xhr.setRequestHeader("cache-control", "no-cache");
     xhr.send(data);
 
-    // TODO : update chall reussis
+    // Nb validations
+    data = JSON.stringify(false);
+    xhr = new XMLHttpRequest();
+    xhr.withCredentials = true;
+    xhr.addEventListener("readystatechange", function () {
+        if (this.status === 200) {
+            var validations = JSON.parse(this.responseText)['records'];
+            if (validations === undefined) {
+                user.validations = [];
+            } else {
+                user.validations = validations;
+            }
+            
+        }
+    });
+    xhr.open("GET", env.server_url + "api/v1/challenge/read_validations.php", false);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem('jwt'));
+    xhr.setRequestHeader("Accept", "*/*");
+    xhr.setRequestHeader("Cache-Control", "no-cache");
+    xhr.setRequestHeader("cache-control", "no-cache");
+    xhr.send(data);
+
     // TODO : update chall reussis / nb_total_chall par catégorie
     this.state = {
         pseudo: user['pseudo'],
@@ -38,7 +65,7 @@ class Dashboard extends Component {
         points: user['score'],
         rank: user['rank'],
         total_memberf: 12000,
-        reussis: 0,
+        reussis: user.validations.length,
         solutions: 0,
         inventes: 0,
         stats: [

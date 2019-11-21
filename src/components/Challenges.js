@@ -12,33 +12,6 @@ class Challenges extends Component {
     this.state =({
         title: props.title
     })
-    this.challs = [
-        {
-            id: "01",
-            author: "Simon",
-            points: 100,
-            title: "Titre 1",
-        },
-        {
-            id: "02",
-            author: "Paul",
-            points: 500,
-            title: "Titre 2",
-        },
-        {
-            id: "03",
-            author: "Jacques",
-            points: 1500,
-            title: "Titre 3",
-        },
-        {
-            id: "04",
-            author: "Thomas",
-            points: 5000,
-            title: "Titre 4",
-        }
-    ];
-    this.title = "Forensic";
 
     this.easy = 75;
     this.mean = 25;
@@ -108,6 +81,8 @@ class Challenges extends Component {
   }
 
   render() {
+
+    // TODO : Intégrer levels avec l'API
     var challs;
     var data = null;
     var xhr = new XMLHttpRequest();
@@ -141,12 +116,8 @@ class Challenges extends Component {
             xhr = new XMLHttpRequest();
             xhr.withCredentials = true;
             xhr.addEventListener("readystatechange", function () {
-                console.log(this.status);
-                
                 if (this.status === 200) {
                     chall.author =  JSON.parse(this.responseText)['authors'];
-                    console.log(chall.author);
-                    
                 } else if (this.status === 404){
                     // TODO : Afficher message d'erreur
                     console.log("Tous les auteurs n'ont pas pu être chargés");                    
