@@ -185,7 +185,6 @@ class Challenges extends Component {
     }
 
     // FIXME : Texte des difficultés "accessible, difficile etc" déborde sur 2 lignes quand on réduit la taille de la fenêtre
-    // FIXME : Problème d'encodage des accents (ex : Intermédiaire)
     return (
         <div className={`Challenges  ${styles.main_div}`}>
             <Container>
