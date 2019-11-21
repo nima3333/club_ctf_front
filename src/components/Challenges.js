@@ -116,7 +116,7 @@ class Challenges extends Component {
         if (this.readyState === 4) {
             if (this.status === 200) {
                 challs = JSON.parse(this.responseText);
-            } else {
+            } else if (this.status === 404){
                 // TODO : Afficher message d'erreur
                 console.log("Erreur de chargement des challenges");
                 
@@ -141,14 +141,18 @@ class Challenges extends Component {
             xhr = new XMLHttpRequest();
             xhr.withCredentials = true;
             xhr.addEventListener("readystatechange", function () {
+                console.log(this.status);
+                
                 if (this.status === 200) {
                     chall.author =  JSON.parse(this.responseText)['authors'];
-                } else {
+                    console.log(chall.author);
+                    
+                } else if (this.status === 404){
                     // TODO : Afficher message d'erreur
                     console.log("Tous les auteurs n'ont pas pu être chargés");                    
                 }
             });
-            xhr.open("GET", env.server_url + "api/v1/challenge/read.php?idChall=2", false);
+            xhr.open("GET", env.server_url + "api/v1/challenge/read.php?idChall=" + chall.idChall, false);
             xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem('jwt'));
             xhr.setRequestHeader("Accept", "*/*");
             xhr.setRequestHeader("Cache-Control", "no-cache");
@@ -176,7 +180,7 @@ class Challenges extends Component {
                                         </div>
                                     </Card.Header>
                                     <Card.Body>
-                                    <Card.Title>{chall.author}</Card.Title>
+                                    <Card.Title>{chall.author.join(", ")}</Card.Title>
                                     <Card.Text>
                                         Some quick example text to build on the card title and make up the bulk
                                         of the card's content.

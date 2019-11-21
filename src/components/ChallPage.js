@@ -11,8 +11,8 @@ class ChallPage extends Component {
     console.dir(this.props.match.params.id)
   }
 
-  render() {
-
+render() {
+    
     return (
         <div className={`chall ${styles.full_width}`}>
             <Container fluid="true">

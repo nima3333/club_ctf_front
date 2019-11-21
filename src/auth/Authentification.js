@@ -26,7 +26,7 @@ function login(username, password, auth, setError) {
                 var res = JSON.parse(this.responseText);          
                 localStorage.setItem('jwt', res.jwt);
                 auth();
-            } else {
+            } else if (this.status === 404){
                 setError();
             }
         }
@@ -66,7 +66,7 @@ function register(mail, password, confirmPassword, pseudo, phone, auth, setError
             if (this.readyState === 4) {
                 if (this.status === 200) {
                     login(pseudo, password, auth);
-                } else {
+                } else if (this.status === 404){
                     setError("Impossible de créer le compte");
                 }
             }
