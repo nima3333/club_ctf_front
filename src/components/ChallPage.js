@@ -83,6 +83,7 @@ class ChallPage extends Component {
     // TODO : Afficher le titre du chall
     // TODO : Aligner les "boites" de couleur sur les cards du dessous 
     // TODO : Mettre le mot de passe de validation en **** plutôt qu'en clair
+    // TODO : Changer couleur de la boite et de la barre de difficulté en fonction de la difficulté
 
     // Intégration
     // TODO : Intégrer nombre de validations
@@ -99,7 +100,7 @@ class ChallPage extends Component {
                                     <Row>
                                         <div className={styles.card_title} style={{width:"8rem"}}>{this.chall.difficulty}</div>
                                         <div style={{display:"flex"}}>
-                                            <ProgressBar className={styles.vertical_center} style={{width:"11rem"}} variant="success" now={20}></ProgressBar>
+                                            <ProgressBar className={styles.vertical_center} style={{width:"11rem"}} variant="success" now={this.chall.points}></ProgressBar>
                                         </div>
                                     </Row>
                                 </Container>

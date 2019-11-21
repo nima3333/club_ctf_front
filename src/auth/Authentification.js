@@ -28,6 +28,9 @@ function login(username, password, auth, setError) {
                 auth();
             } else if (this.status === 404){
                 setError();
+            } else if (this.status === 400) {
+                console.log(this.responseText);
+                
             }
         }
       });

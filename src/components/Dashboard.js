@@ -80,21 +80,46 @@ class Dashboard extends Component {
     xhr.setRequestHeader("cache-control", "no-cache");
     xhr.send(data);
 
-    // TODO : Ajouter autres catégories (une fois fait en back)
-    var total_web = challs.web.length === 0 ? 1 : challs.web.length;
-    var total_crypto = challs.crypto.length === 0 ? 1 : challs.crypto.length;
-    var nb_web = 0;
-    var nb_crypto = 0;
+    this.categories = [
+        {name: "Dev",
+        total: 0,
+        value: 0},
+        {name: "Web",
+        total: 0,
+        value: 0},
+        {name: "Reverse",
+        total: 0,
+        value: 0},
+        {name: "Forensics",
+        total: 0,
+        value: 0},
+        {name: "Crypto",
+        total: 0,
+        value: 0},
+        {name: "Reseau",
+        total: 0,
+        value: 0}
+    ]
 
+    // Total number of challenges per category
+    this.categories[0].total =  challs.dev.length === 0 ? 1 : challs.dev.length;
+    this.categories[1].total =  challs.web.length === 0 ? 1 : challs.web.length;
+    this.categories[2].total =  challs.reverse.length === 0 ? 1 : challs.reverse.length;
+    this.categories[3].total =  challs.forensics.length === 0 ? 1 : challs.forensics.length;
+    this.categories[4].total =  challs.crypto.length === 0 ? 1 : challs.crypto.length;
+    this.categories[5].total =  challs.reseau.length === 0 ? 1 : challs.reseau.length;
+
+
+    // Nb of validations per category
     for (let chall of user.validations) {
-        if (chall.type === "web") {
-            nb_web++;
-        } else if (chall.type === "crypto") {
-            nb_crypto++;
+        for (let i = 0; i < this.categories.length; i++) {
+            if (this.categories[i].name.toLocaleLowerCase() === chall.type) {
+                this.categories[i].value++;
+            }            
         }
     }
 
-    console.log(total_web);
+    console.log(challs);
     
     this.state = {
         pseudo: user.pseudo,
@@ -105,28 +130,6 @@ class Dashboard extends Component {
         reussis: user.validations.length,
         solutions: 0,
         inventes: 0,
-        stats: [
-            {
-              name: "Web",
-              value: (nb_web / total_web) * 100,
-              color: '#00ff00',
-            },
-            {
-              name: "Crypto",
-              value: (nb_crypto / total_crypto) * 100,
-              color: '#ff0000',
-            },
-            {
-              name: "Forensic",
-              value: 10,
-              color: '#ff0000',
-            },
-            {
-              name: "Stégano",
-              value: 100,
-              color: '#0000ff',
-            }
-        ]
     };
   }
 
@@ -211,13 +214,13 @@ class Dashboard extends Component {
                     <Col style={{paddingTop: "1rem"}}>
                         <Card bg="dark" border="secondary" style={{ width: '100%', fontSize: "14px"}}>
                             <Col>
-                            {this.state.stats.map(stat => (
+                            {this.categories.map(stat => (
                                 <Row style={{margin: "1rem"}}>
                                     <span className={`Dashboard  ${styles.stat_title}`}>
                                         {stat.name}
                                     </span>
                                     <div className={`${styles.progress_bar}`}>
-                                        <ProgressBar className={styles.dark_progress_bar} now={stat.value} variant={this.get_color_stat(stat.value)}/>
+                                        <ProgressBar className={styles.dark_progress_bar} now={(stat.value / stat.total) * 100} variant={this.get_color_stat((stat.value / stat.total) * 100)}/>
                                     </div>
                                 </Row>
                             ))}

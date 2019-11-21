@@ -13,21 +13,7 @@ class Challenges extends Component {
         title: props.title
     })
 
-    this.easy = 75;
-    this.mean = 25;
-    this.hard = 75;
-    this.deadly = 25;
-    this.levels = [
-        {name: "easy",
-        value: 24},
-        {name: "medium",
-        value: 25},
-        {name: "hard",
-        value: 75},
-        {name: "deadly",
-        value: 25}
-    ]
-
+    this.validations = []
 
     this.accompl = [
         {
@@ -59,9 +45,9 @@ class Challenges extends Component {
     
 
   get_color_stat(x) {
-    if (x < 25) {
+    if (x < 33) {
         return 'danger';
-    } else if (x < 50) {
+    } else if (x < 66) {
         return 'warning';
     } else {
         return 'success';
@@ -69,11 +55,11 @@ class Challenges extends Component {
   }
 
   get_color_points(x) {
-    if (x < 400) {
+    if (x < 20) {
         return 'success';
-    } else if (x < 1000) {
+    } else if (x < 49) {
         return 'warning';
-    } else if (x < 3500) {
+    } else if (x < 74) {
         return 'danger';
     } else {
         return 'secondary';
@@ -82,7 +68,21 @@ class Challenges extends Component {
 
   render() {
 
-    // TODO : Intégrer levels avec l'API
+    this.levels = [
+        {name: "Accessible",
+        total: 0,
+        value: 0},
+        {name: "Intermédiaire",
+        total: 0,
+        value: 0},
+        {name: "Difficile",
+        total: 0,
+        value: 0},
+        {name: "Hardcore",
+        total: 0,
+        value: 0}
+    ]
+
     var challs;
     var data = null;
     var xhr = new XMLHttpRequest();
@@ -106,6 +106,8 @@ class Challenges extends Component {
     xhr.setRequestHeader("cache-control", "no-cache");
     xhr.send(data);
 
+    console.log(challs);
+    
     this.challs = challs[this.props.chall.toLowerCase()];
     if (this.challs === undefined) {
         this.challs = [];
@@ -132,6 +134,58 @@ class Challenges extends Component {
         }
     }
 
+    data = JSON.stringify(false);
+    xhr = new XMLHttpRequest();
+    xhr.withCredentials = true;
+    var val;
+    xhr.addEventListener("readystatechange", function () {
+        if (this.status === 200) {
+            if (this.responseText === "No validation found 404 for pseudo") {
+                val = [];
+            } else {
+                val = JSON.parse(this.responseText);
+                console.log(this.validations);
+                
+            }            
+        }
+    });
+    xhr.open("GET", env.server_url + "api/v1/challenge/read_validations.php", false);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem('jwt'));
+    xhr.setRequestHeader("Accept", "*/*");
+    xhr.setRequestHeader("Cache-Control", "no-cache");
+    xhr.setRequestHeader("cache-control", "no-cache");
+    xhr.send(data);
+
+    this.validations = val.length === 0 ? [] : val.records;
+
+    // Total number of challenges per category
+    for (let chall of this.challs) {
+        for (let i = 0; i < this.levels.length; i++) {
+            if (chall.difficulty === this.levels[i].name){
+                this.levels[i].total++;
+                break;
+            }            
+        }
+    }
+   
+    // Number of challenges validated by category
+    for (let chall of this.validations) {
+        for (let i = 0; i < this.levels.length; i++) {
+            if (chall.difficulty === this.levels[i].name && chall.type == this.props.chall.toLowerCase()){
+                this.levels[i].value++;
+                break;
+            }            
+        }
+    }
+
+    // Don't allow division by 0
+    for (let i = 0; i < this.levels.length; i++) {
+        this.levels[i].total = this.levels[i].total === 0 ? 1 : this.levels[i].total;           
+    }
+
+    // FIXME : Texte des difficultés "accessible, difficile etc" déborde sur 2 lignes quand on réduit la taille de la fenêtre
+    // FIXME : Problème d'encodage des accents (ex : Intermédiaire)
     return (
         <div className={`Challenges  ${styles.main_div}`}>
             <Container>
@@ -152,11 +206,7 @@ class Challenges extends Component {
                                     </Card.Header>
                                     <Card.Body>
                                     <Card.Title>{chall.author.join(", ")}</Card.Title>
-                                    <Card.Text>
-                                        Some quick example text to build on the card title and make up the bulk
-                                        of the card's content.
-                                    </Card.Text>
-                                    <Button onClick={() => this.go_to_challenge(chall.idChall)} variant="primary">Go somewhere</Button>
+                                    <Button onClick={() => this.go_to_challenge(chall.idChall)} variant="primary">Démarrer le challenge</Button>
                                     </Card.Body>
                                 </Card>
 
@@ -173,11 +223,11 @@ class Challenges extends Component {
                                 {this.levels.map(level => (
                                     <Container className={styles.diff}>
                                         <Row style={{width:"100%"}}>
-                                            <Col md="4" className={styles.text_level}>
+                                            <Col md="auto" className={styles.text_level}>
                                                 <p> {level.name} </p>
                                             </Col>
                                             <Col md="auto" style={{width:"100%", display: "flex", justifyContent: "center", flexDirection: "column"}}>
-                                                <ProgressBar className={styles.dark_progress_bar} variant={this.get_color_stat(level.value)} label={level.value} now={level.value}/>
+                                                <ProgressBar className={styles.dark_progress_bar} variant={this.get_color_stat((level.value / level.total) * 100)} label={(level.value / level.total) * 100 + " %"} now={(level.value / level.total) * 100}/>
                                             </Col>
                                         </Row>
                                     </Container>

@@ -12,9 +12,10 @@ import {withRouter} from 'react-router-dom';
 
 const navbar = {backgroundColor: '#1D252B'};
 
+// TODO : Ajouter une icone pour le reverse
 const items = [
   {
-    link:"Programmation",
+    link:"Dev",
     image:prog
   },
   {
@@ -22,7 +23,7 @@ const items = [
     image:terminal
   },
   {
-    link:"Forensic",
+    link:"Forensics",
     image:loupe
   },
   {
