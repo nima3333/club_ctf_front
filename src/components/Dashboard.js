@@ -45,9 +45,9 @@ class Dashboard extends Component {
         xhr.addEventListener("readystatechange", function () {
             if (this.status === 200) {
                 if (this.responseText === "No validation found 404 for pseudo") {
-                    var user.validations = [];
+                    //var user.validations = [];
                 } else {
-                    var user.validations = JSON.parse(this.responseText).records;
+                    //var user.validations = JSON.parse(this.responseText).records;
                 }            
             }
         });
@@ -94,7 +94,6 @@ class Dashboard extends Component {
     var validations;
 
     this.state = {
-
         solutions: 0,
         inventes: 0,
         showError: false,
@@ -218,7 +217,7 @@ class Dashboard extends Component {
         solutions: 0,
         inventes: 0,
         showError: false,
-        loading: true,
+        loading: false,
     };
   }
 }
