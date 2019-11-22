@@ -2,18 +2,104 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import React, {Component} from 'react';
 import styles from './Dashboard.module.css';
 import avatar from '../icons/007-hacker-icon.jpg';
-import {ProgressBar, Image, Card, Container, Row, Col} from 'react-bootstrap'
+import {Button,Modal, ProgressBar, Image, Card, Container, Row, Col} from 'react-bootstrap'
 import Graphe from '../misc/LineGraph'
+import Loading from '../misc/Loading';
 
 var env = require('../misc/env.js');
 
 class Dashboard extends Component {
+
+    start_data_fetch1 = () => {
+        // User info
+        var data = JSON.stringify(false);
+        var xhr = new XMLHttpRequest();
+        xhr.withCredentials = true;
+
+        xhr.addEventListener("readystatechange", function () {
+            if (this.readyState === 4) {
+                if (this.status === 200) {
+                    var user = JSON.parse(this.responseText)['records'][0];
+                } else if (this.status === 404){
+                    // TODO : Afficher message d'erreur
+                    console.log("Impossible de charger les infos utilisateur, veuillez vous authentifier");          
+                }            
+            }
+        });
+
+        xhr.open("GET", env.server_url + "api/v1/user/read_current.php", false);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem('jwt'));
+        xhr.setRequestHeader("Accept", "*/*");
+        xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+        xhr.setRequestHeader("Cache-Control", "no-cache");
+        xhr.setRequestHeader("cache-control", "no-cache");
+        xhr.send(data);
+    }
+
+    data_fetch2 = () => {
+         // Nb validations
+        var data = JSON.stringify(false);
+        var xhr = new XMLHttpRequest();
+        xhr.withCredentials = true;
+        xhr.addEventListener("readystatechange", function () {
+            if (this.status === 200) {
+                if (this.responseText === "No validation found 404 for pseudo") {
+                    var user.validations = [];
+                } else {
+                    var user.validations = JSON.parse(this.responseText).records;
+                }            
+            }
+        });
+        xhr.open("GET", env.server_url + "api/v1/challenge/read_validations.php", false);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem('jwt'));
+        xhr.setRequestHeader("Accept", "*/*");
+        xhr.setRequestHeader("Cache-Control", "no-cache");
+        xhr.setRequestHeader("cache-control", "no-cache");
+        xhr.send(data);
+    }
+
+    data_fetch3 = () => {
+        //challs
+        var challs;
+        var data = null;
+        var xhr = new XMLHttpRequest();
+        xhr.withCredentials = true;
+        xhr.addEventListener("readystatechange", function () {
+            if (this.readyState === 4) {
+                if (this.status === 200) {
+                    challs = JSON.parse(this.responseText);
+                } else if (this.status === 404){
+                    // TODO : Afficher message d'erreur
+                    console.log("Erreur de chargement des challenges");
+                    
+                }
+                
+            }
+        });
+        xhr.open("GET",  env.server_url + "/api/v1/challenge/read_all.php", false);
+        xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem('jwt'));
+        xhr.setRequestHeader("Accept", "*/*");
+        xhr.setRequestHeader("Cache-Control", "no-cache");
+        xhr.setRequestHeader("cache-control", "no-cache");
+        xhr.send(data);
+
+    }
+
   constructor(props) {
     super(props);
     
     var user;
     var validations;
 
+    this.state = {
+
+        solutions: 0,
+        inventes: 0,
+        showError: false,
+        loading: true,
+    };
     // User info
     var data = JSON.stringify(false);
     var xhr = new XMLHttpRequest();
@@ -32,6 +118,7 @@ class Dashboard extends Component {
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem('jwt'));
     xhr.setRequestHeader("Accept", "*/*");
+    xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
     xhr.setRequestHeader("Cache-Control", "no-cache");
     xhr.setRequestHeader("cache-control", "no-cache");
     xhr.send(data);
@@ -100,7 +187,8 @@ class Dashboard extends Component {
         total: 0,
         value: 0}
     ]
-
+    if (typeof challs === 'undefined'){}
+    else{
     // Total number of challenges per category
     this.categories[0].total =  challs.dev.length === 0 ? 1 : challs.dev.length;
     this.categories[1].total =  challs.web.length === 0 ? 1 : challs.web.length;
@@ -118,7 +206,6 @@ class Dashboard extends Component {
             }            
         }
     }
-
     console.log(challs);
     
     this.state = {
@@ -130,8 +217,11 @@ class Dashboard extends Component {
         reussis: user.validations.length,
         solutions: 0,
         inventes: 0,
+        showError: false,
+        loading: true,
     };
   }
+}
 
   get_color_stat(x) {
     if (x < 25) {
@@ -143,15 +233,50 @@ class Dashboard extends Component {
     }
   }
 
+  setError = (message) => {
+      this.setState({
+        showError: true
+      })
+  }
+
+  handleClose = (message) => {
+      //TODO: retour à l'id
+    this.setState({
+      showError: false
+    })
+    }
 
   render() {
+    if(this.state.loading === true){
+        return(<Loading></Loading>)
+    }
+    else {
     return (
         <div className={`Dashboard  ${styles.main_div}`}>
+
+            {/* Erreur */}
+            <Modal show={this.state.showError} onHide={this.handleClose}>
+                <Modal.Header closeButton>
+                <Modal.Title>Modal heading</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+                <Modal.Footer>
+                <Button variant="secondary" onClick={this.handleClose}>
+                    Close
+                </Button>
+                <Button variant="primary" onClick={this.handleClose}>
+                    Save Changes
+                </Button>
+                </Modal.Footer>
+            </Modal>
+
             <Container fluid="true">
                 <Row className={styles.main_row}>
                     <Col xs={12} md={12} lg={"auto"}>
                         <Card bg="dark" className={styles.info_card}>
+                            {/*}
                         <Card.Img variant="top" className={styles.image2} src={this.state.avatar} rounded/>
+    {*/}
                         {/*}                        
                         <Card.Body>
                             <Card.Text className={styles.card_title}>
@@ -231,7 +356,7 @@ class Dashboard extends Component {
             </Container>
         </div>
     );
-  }
+  }}
 }
 
 export default Dashboard;

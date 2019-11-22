@@ -83,6 +83,7 @@ class Challenges extends Component {
         value: 0}
     ]
 
+    //Récuperer challs
     var challs;
     var data = null;
     var xhr = new XMLHttpRequest();

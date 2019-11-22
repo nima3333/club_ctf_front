@@ -30,7 +30,10 @@ function login(username, password, auth, setError) {
                 setError();
             } else if (this.status === 400) {
                 console.log(this.responseText);
-                
+            }
+            //erreur de co au back
+            else if (this.status === 0) {
+                setError();
             }
         }
       });
@@ -66,12 +69,17 @@ function register(mail, password, confirmPassword, pseudo, phone, auth, setError
           xhr.withCredentials = true;
           
           xhr.addEventListener("readystatechange", function () {
+            console.dir(this)
             if (this.readyState === 4) {
                 if (this.status === 200) {
                     // FIXME : Malgré l'appel à login, à la création d'un compte, on reste bloqué avec le bouton valider qui charge
                     login(pseudo, password, auth, setError);
                 } else if (this.status === 503){
                     setError("Impossible de créer le compte");
+                }
+                //erreur de co au back
+                else if (this.status === 0){
+                    setError("Problème de connexion");
                 }
             }
           });
