@@ -250,19 +250,16 @@ class Dashboard extends Component {
                     <Container fluid="true">
                         <Row className={styles.main_row}>
                             <Col xs={12} md={12} lg={"auto"}>
+                                {/*}
                                 <Card bg="dark" className={styles.info_card}>
-                                    {/*}
                         <Card.Img variant="top" className={styles.image2} src={this.state.avatar} rounded/>
-    {*/}
-                                    {/*}                        
                         <Card.Body>
                             <Card.Text className={styles.card_title}>
                             <Image className={styles.image2} src={this.state.avatar} rounded />
                             </Card.Text>
                         </Card.Body>
-                        {*/}
                                 </Card>
-
+                                {*/}
                             </Col>
                             <Col sm>
                                 <Card bg="dark" text="white" className={styles.info_card} style={{ borderLeftColor: "white" }}>
@@ -308,11 +305,13 @@ class Dashboard extends Component {
 
 
                         <Row className={styles.main_row} style={{ paddingTop: "15px" }}>
+                            {/*}
                             <Col>
                                 <Card border="secondary" style={{ width: '100%', fontSize: "14px" }}>
                                     <Graphe />
                                 </Card>
                             </Col>
+                            {*/}
                             <Col style={{ paddingTop: "1rem" }}>
                                 <Card bg="dark" border="secondary" style={{ width: '100%', fontSize: "14px" }}>
                                     <Col>
