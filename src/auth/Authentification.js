@@ -71,8 +71,7 @@ function register(mail, password, confirmPassword, pseudo, phone, auth, setError
           xhr.addEventListener("readystatechange", function () {
             console.dir(this)
             if (this.readyState === 4) {
-                if (this.status === 200) {
-                    // FIXME : Malgré l'appel à login, à la création d'un compte, on reste bloqué avec le bouton valider qui charge
+                if (this.status === 201 || this.status === 200) {
                     login(pseudo, password, auth, setError);
                 } else if (this.status === 503){
                     setError("Impossible de créer le compte");
@@ -88,6 +87,7 @@ function register(mail, password, confirmPassword, pseudo, phone, auth, setError
           xhr.setRequestHeader("Content-Type", "application/json");
           xhr.setRequestHeader("Authorization", "Basic Q1RGQVBJR0VORVJJQzpVYTIyTVR2UW9Xa0Vld1pXTTMyaERNOGVWRGZlUFI=");
           xhr.setRequestHeader("Accept", "*/*");
+          xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
           xhr.setRequestHeader("Cache-Control", "no-cache");
           xhr.setRequestHeader("cache-control", "no-cache");
           xhr.timeout = 2000;

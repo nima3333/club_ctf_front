@@ -120,6 +120,7 @@ class Dashboard extends Component {
     xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
     xhr.setRequestHeader("Cache-Control", "no-cache");
     xhr.setRequestHeader("cache-control", "no-cache");
+    xhr.setRequestHeader('Access-Control-Allow-Origin', '*')
     xhr.send(data);
 
     // Nb validations
