@@ -13,7 +13,7 @@ class Challenges extends Component {
         super(props);
         this.state = ({
             title: props.title,
-            loading: true
+            loading: true,
         })
 
         this.validations = []
@@ -45,6 +45,7 @@ class Challenges extends Component {
     componentDidMount() {
         this.preFetch()
     }
+
 
     go_to_challenge = (i) => this.props.history.push(`/challenges/${i}`);
 
@@ -247,7 +248,6 @@ class Challenges extends Component {
     }
 
     render() {
-        // FIXME : Texte des difficultés "accessible, difficile etc" déborde sur 2 lignes quand on réduit la taille de la fenêtre
         if (this.state.loading === true) {
             return (<Container><Loading></Loading>
                 <Modal show={this.state.showError} onHide={this.handleClose}>

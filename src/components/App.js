@@ -19,7 +19,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isAuthenticated: true,
+      isAuthenticated: false,
       challenge: false,
       width: 0,
       height: 0
@@ -65,9 +65,14 @@ class App extends Component {
 
   changeChallenge = (chall) => {
     this.setState({
-      challenge: chall
+      challenge: chall,
+      key: this.getRandomInt(1000)
     })
     //console.dir(this.state.challenge)
+  }
+
+  getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
   }
 
   ChallengePage = (props) => {
@@ -75,6 +80,7 @@ class App extends Component {
       return (
         <Challenges
           chall={this.state.challenge}
+          key={this.state.key}
           {...props}
         />
       );

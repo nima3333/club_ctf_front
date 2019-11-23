@@ -60,7 +60,8 @@ class HallOfFame extends Component {
             <td>{item.score}</td>
           </tr>
         )
-      })
+      }),
+      loading: false
     })
   }
 
