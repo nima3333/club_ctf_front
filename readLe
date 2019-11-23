@@ -1,0 +1,6 @@
+cloner
+docker / composr
+commande
+cd www/ && composer install --no-dev
+, depuis la racine du projet
+docker-compose up -d

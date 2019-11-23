@@ -12,7 +12,7 @@ import {withRouter} from 'react-router-dom';
 
 const navbar = {backgroundColor: '#1D252B'};
 
-// TODO : Ajouter une icone pour le reverse
+// TODO: Ajouter une icone pour le reverse
 const items = [
   {
     link:"Dev",

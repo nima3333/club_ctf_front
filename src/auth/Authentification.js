@@ -30,7 +30,10 @@ function login(username, password, auth, setError) {
                 setError();
             } else if (this.status === 400) {
                 console.log(this.responseText);
-                
+            }
+            //erreur de co au back
+            else if (this.status === 0) {
+                setError();
             }
         }
       });
@@ -48,8 +51,6 @@ function login(username, password, auth, setError) {
 function register(mail, password, confirmPassword, pseudo, phone, auth, setError) {
 
     //TODO: regex pour mail, tel, taille mot de passe etc (pas urgent)
-    // Pas de vérification de la disponibilité du pseudo / mail côté front, le back
-    // devrait renvoyer différents messages d'erreurs (pas encore implémenté).
     if (mail === "" || password === "" || confirmPassword === "" || pseudo === "" || phone === "" ) {
         setError("Veuillez remplir tous les champs");
     } else if (password !== confirmPassword) {
@@ -66,12 +67,16 @@ function register(mail, password, confirmPassword, pseudo, phone, auth, setError
           xhr.withCredentials = true;
           
           xhr.addEventListener("readystatechange", function () {
+            console.dir(this)
             if (this.readyState === 4) {
-                if (this.status === 200) {
-                    // FIXME : Malgré l'appel à login, à la création d'un compte, on reste bloqué avec le bouton valider qui charge
+                if (this.status === 201 || this.status === 200) {
                     login(pseudo, password, auth, setError);
                 } else if (this.status === 503){
                     setError("Impossible de créer le compte");
+                }
+                //erreur de co au back
+                else if (this.status === 0){
+                    setError("Problème de connexion");
                 }
             }
           });
