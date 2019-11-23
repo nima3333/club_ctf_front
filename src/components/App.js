@@ -49,10 +49,8 @@ class App extends Component {
 
   authenticate = () => {
     this.setState({
-      // TODO : charger dashboard
       isAuthenticated: true
     })
-    console.log(this.state)
     //setTimeout(cb, 100)
   }
 

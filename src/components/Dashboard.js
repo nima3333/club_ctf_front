@@ -12,6 +12,7 @@ class Dashboard extends Component {
 
     start_data_fetch1 = (dataFecth2, data_fetch3, postTreatment) => {
         // User info
+        const setErrorFunction = this.setError
         var data = JSON.stringify(false);
         var xhr = new XMLHttpRequest();
         xhr.withCredentials = true;
@@ -22,7 +23,7 @@ class Dashboard extends Component {
                     var user = JSON.parse(this.responseText)['records'][0];
                     dataFecth2(user, data_fetch3, postTreatment);
                 } else if (xhr.status === 404) {
-                    this.setError("Impossible de charger les infos utilisateur, veuillez vous authentifier");
+                    setErrorFunction("Impossible de charger les infos utilisateur, veuillez vous authentifier");
                 }
             }
         });
@@ -75,6 +76,7 @@ class Dashboard extends Component {
         //challs
         var data = null;
         var xhr = new XMLHttpRequest();
+        const setErrorFunction = this.setError
         xhr.withCredentials = true;
         xhr.addEventListener("readystatechange", function () {
             if (this.readyState === 4) {
@@ -82,7 +84,7 @@ class Dashboard extends Component {
                     var challs = JSON.parse(this.responseText);
                     postTreatment(user, challs)
                 } else if (this.status === 404) {
-                    this.setError("Erreur de chargement des challenges")
+                    setErrorFunction("Erreur de chargement des challenges")
                 }
             }
         });

@@ -73,9 +73,7 @@ class ChallPage extends Component {
                 if (this.status === 200) {
                     var msg = JSON.parse(this.responseText).message;
                     if (msg === "Flag is valid") {
-                        // TODO : transformer les setError en setMessage
                         setErrorFunction("Bien joué !")
-                        console.log("Bien joué !");
                     } else if (msg === "Flag already submitted!") {
                         setErrorFunction("Désolé, vous avez déjà validé ce challenge.")
                     } else {
@@ -101,6 +99,14 @@ class ChallPage extends Component {
         }
     }
 
+    difficulty2color = {
+        "Hardcore": "secondary",
+        "Difficile": "danger",
+        "IntermÃ©diaire": "warning",
+        "Intermédiaire": "warning",
+        "Accessible": "success"
+    }
+
     setError = (message) => {
         this.setState({
             showError: true,
@@ -116,96 +122,111 @@ class ChallPage extends Component {
 
     render() {
         // Front
-        // TODO : Afficher le titre du chall
         // TODO : Aligner les "boites" de couleur sur les cards du dessous 
-        // TODO : Changer couleur de la boite et de la barre de difficulté en fonction de la difficulté
 
         // Intégration
         // TODO : Intégrer nombre de validations
-        if(this.state.loading === false) {
-        return (
-            <div className={`chall ${styles.full_width}`}>
-                <ErrorMessage showError={this.state.showError} handleClose={this.handleClose} errorMessage={this.state.errorMessage}></ErrorMessage>
-                <Container fluid="true">
-                    <Row className={styles.main_row}>
-                        <Col>
-                            <Card bg="dark" text="white" border="success" className={styles.info_card}>
+        console.dir(this.chall)
+        if (this.state.loading === false) {
+            return (
+                <div className={`chall ${styles.full_width}`}>
+                    <ErrorMessage showError={this.state.showError} handleClose={this.handleClose} errorMessage={this.state.errorMessage}></ErrorMessage>
+                    <Container fluid="true">
+                        <Row>
+                            <Col>
+                                <Card bg="dark" text="white" className={styles.info_card}>
+                                    <Card.Body>
+                                        <Card.Text>
+                                            <Container>
+                                                <Row>
+                                                    <div className={styles.card_title} style={{textAlign: "center", width: "100%"}}>{this.chall.title}</div>
+                                                </Row>
+                                            </Container>
+                                        </Card.Text>
+                                    </Card.Body>
+                                </Card>
+                            </Col>
+                        </Row>
+                        <Row className={styles.main_row}>
+                            <Col>
+                                <Card bg="dark" text="white" border={this.difficulty2color[this.chall.difficulty]} className={styles.info_card}>
+                                    <Card.Body>
+                                        <Card.Title className={styles.info_card_title} style={{ color: "white" }}>Difficulté</Card.Title>
+                                        <Card.Text>
+                                            <Container>
+                                                <Row>
+                                                    <div className={styles.card_title} style={{ width: "8rem" }}>{this.chall.difficulty}</div>
+                                                    <div style={{ display: "flex" }}>
+                                                        <ProgressBar className={styles.vertical_center} style={{ width: "11rem" }} variant={this.difficulty2color[this.chall.difficulty]} now={this.chall.points}></ProgressBar>
+                                                    </div>
+                                                </Row>
+                                            </Container>
+                                        </Card.Text>
+                                    </Card.Body>
+                                </Card>
+                            </Col>
+                            <Col>
+                                <Card bg="dark" text="white" className={styles.info_card} style={{ borderColor: "red" }}>
+                                    <Card.Body>
+                                        <Card.Title className={styles.info_card_title} style={{ color: "red" }}>Validations</Card.Title>
+                                        <Card.Text className={styles.card_title}>
+                                            18
+                            </Card.Text>
+                                    </Card.Body>
+                                </Card>
+                            </Col>
+                            <Col>
+                                <Card bg="dark" text="white" className={styles.info_card} style={{ borderColor: "yellow" }}>
+                                    <Card.Body>
+                                        <Card.Title className={styles.info_card_title} style={{ color: "yellow" }}>Auteur(s)</Card.Title>
+                                        <Card.Text className={styles.card_title}>
+                                            {this.chall.authors.join(", ")}
+                                        </Card.Text>
+                                    </Card.Body>
+                                </Card>
+                            </Col>
+                            <Col>
+                                <Card bg="dark" text="white" className={styles.info_card} style={{ borderColor: "grey" }}>
+                                    <Card.Body>
+                                        <Card.Title className={styles.info_card_title} style={{ color: "grey" }}>Récompense</Card.Title>
+                                        <Card.Text className={styles.card_title}>
+                                            {this.chall.points} points
+                            </Card.Text>
+                                    </Card.Body>
+                                </Card>
+                            </Col>
+                        </Row>
+                        <Row className={styles.main_row}>
+                            <Card bg="dark" text="white" className={styles.main_card}>
+                                <Card.Header className={styles.card_title}>Enoncé</Card.Header>
                                 <Card.Body>
-                                    <Card.Title className={styles.info_card_title} style={{ color: "green" }}>Difficulté</Card.Title>
                                     <Card.Text>
-                                        <Container>
-                                            <Row>
-                                                <div className={styles.card_title} style={{ width: "8rem" }}>{this.chall.difficulty}</div>
-                                                <div style={{ display: "flex" }}>
-                                                    <ProgressBar className={styles.vertical_center} style={{ width: "11rem" }} variant="success" now={this.chall.points}></ProgressBar>
-                                                </div>
-                                            </Row>
-                                        </Container>
+                                        {this.chall.statement}
                                     </Card.Text>
+                                    <Button variant="primary" onClick={() => this.loadChall(this.chall.url)}>Démarrer le challenge</Button>
                                 </Card.Body>
                             </Card>
-                        </Col>
-                        <Col>
-                            <Card bg="dark" text="white" className={styles.info_card} style={{ borderColor: "red" }}>
+                        </Row>
+                        <Row className={styles.main_row}>
+                            <Card bg="dark" text="white" className={styles.main_card}>
+                                <Card.Header className={styles.card_title}>Valider le challenge</Card.Header>
                                 <Card.Body>
-                                    <Card.Title className={styles.info_card_title} style={{ color: "red" }}>Validations</Card.Title>
-                                    <Card.Text className={styles.card_title}>
-                                        18
-                            </Card.Text>
-                                </Card.Body>
-                            </Card>
-                        </Col>
-                        <Col>
-                            <Card bg="dark" text="white" className={styles.info_card} style={{ borderColor: "yellow" }}>
-                                <Card.Body>
-                                    <Card.Title className={styles.info_card_title} style={{ color: "yellow" }}>Auteur(s)</Card.Title>
-                                    <Card.Text className={styles.card_title}>
-                                        {this.chall.authors.join(", ")}
-                                    </Card.Text>
-                                </Card.Body>
-                            </Card>
-                        </Col>
-                        <Col>
-                            <Card bg="dark" text="white" className={styles.info_card} style={{ borderColor: "grey" }}>
-                                <Card.Body>
-                                    <Card.Title className={styles.info_card_title} style={{ color: "grey" }}>Récompense</Card.Title>
-                                    <Card.Text className={styles.card_title}>
-                                        {this.chall.points} points
-                            </Card.Text>
-                                </Card.Body>
-                            </Card>
-                        </Col>
-                    </Row>
-                    <Row className={styles.main_row}>
-                        <Card bg="dark" text="white" className={styles.main_card}>
-                            <Card.Header className={styles.card_title}>Enoncé</Card.Header>
-                            <Card.Body>
-                                <Card.Text>
-                                    {this.chall.statement}
-                                </Card.Text>
-                                <Button variant="primary" onClick={() => this.loadChall(this.chall.url)}>Démarrer le challenge</Button>
-                            </Card.Body>
-                        </Card>
-                    </Row>
-                    <Row className={styles.main_row}>
-                        <Card bg="dark" text="white" className={styles.main_card}>
-                            <Card.Header className={styles.card_title}>Valider le challenge</Card.Header>
-                            <Card.Body>
-                                <Card.Text>
-                                    Saisir le mot de passe
+                                    <Card.Text>
+                                        Saisir le mot de passe
                                 <Form.Control style={{ backgroundColor: "#444444", color: "white" }} type="password" placeholder="" onChange={this.handleChange} id="password" />
-                                </Card.Text>
-                                <Button variant="primary" onClick={() => this.validateChall()}>Valider</Button>
-                            </Card.Body>
-                        </Card>
-                    </Row>
-                </Container>
-            </div>
-        );
+                                    </Card.Text>
+                                    <Button variant="primary" onClick={() => this.validateChall()}>Valider</Button>
+                                </Card.Body>
+                            </Card>
+                        </Row>
+                    </Container>
+                </div>
+            );
+        }
+        else {
+            return (<Loading></Loading>)
+        }
     }
-    else{
-        return(<Loading></Loading>)
-    }}
 }
 
 export default ChallPage;

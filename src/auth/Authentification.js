@@ -51,8 +51,6 @@ function login(username, password, auth, setError) {
 function register(mail, password, confirmPassword, pseudo, phone, auth, setError) {
 
     //TODO: regex pour mail, tel, taille mot de passe etc (pas urgent)
-    // Pas de vérification de la disponibilité du pseudo / mail côté front, le back
-    // devrait renvoyer différents messages d'erreurs (pas encore implémenté).
     if (mail === "" || password === "" || confirmPassword === "" || pseudo === "" || phone === "" ) {
         setError("Veuillez remplir tous les champs");
     } else if (password !== confirmPassword) {

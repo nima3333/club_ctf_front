@@ -2,17 +2,18 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { Component } from 'react';
 import styles from './Challenges.module.css';
 import { Button } from 'reactstrap';
-import { ProgressBar, Card, Badge, Col, Row, Container } from 'react-bootstrap';
+import { Modal, ProgressBar, Card, Badge, Col, Row, Container } from 'react-bootstrap';
 import ErrorMessage from '../misc/ErrorMessage'
+import Loading from '../misc/Loading'
 
 var env = require('../misc/env.js');
 
-//TODO: mettre les requetes dans componentDidMount avec un Loading
 class Challenges extends Component {
     constructor(props) {
         super(props);
         this.state = ({
-            title: props.title
+            title: props.title,
+            loading: true
         })
 
         this.validations = []
@@ -42,7 +43,7 @@ class Challenges extends Component {
     }
 
     componentDidMount() {
-
+        this.preFetch()
     }
 
     go_to_challenge = (i) => this.props.history.push(`/challenges/${i}`);
@@ -83,8 +84,7 @@ class Challenges extends Component {
         })
     }
 
-    render() {
-        var setErrorFunction = this.setError
+    preFetch = () => {
         this.levels = [
             {
                 name: "Accessible",
@@ -107,22 +107,24 @@ class Challenges extends Component {
                 value: 0
             }
         ]
+        this.data_fetch_1()
+    }
 
-        //Récuperer challs
+    data_fetch_1 = () => {
         var challs;
         var data = null;
         var xhr = new XMLHttpRequest();
+        const setErrorFunction = this.setError
+        const data_fetch_2_fn = this.data_fetch_2
         xhr.withCredentials = true;
         xhr.addEventListener("readystatechange", function () {
             if (this.readyState === 4) {
                 if (this.status === 200) {
                     challs = JSON.parse(this.responseText);
+                    data_fetch_2_fn(challs)
                 } else if (this.status === 404) {
                     setErrorFunction("Erreur de chargement des challenges")
-                    console.log("Erreur de chargement des challenges");
-
                 }
-
             }
         });
         xhr.open("GET", env.server_url + "/api/v1/challenge/read_all.php", false);
@@ -136,24 +138,31 @@ class Challenges extends Component {
         catch (e) {
             this.setError("Erreur de connexion")
         }
+    }
 
-        console.log(challs);
-
+    data_fetch_2 = (challs) => {
         this.challs = challs[this.props.chall.toLowerCase()];
         if (this.challs === undefined) {
             this.challs = [];
         } else {
             // Charger les auteurs associés
+            var number_of_challs = this.challs.length
+            const data_fetch_3_fn = this.data_fetch_3
+            
             for (let chall of this.challs) {
-                data = null;
-                xhr = new XMLHttpRequest();
+                var data = null;
+                var xhr = new XMLHttpRequest();
+                const setErrorFunction = this.setError
                 xhr.withCredentials = true;
                 xhr.addEventListener("readystatechange", function () {
+                    number_of_challs --;
                     if (this.status === 200) {
                         chall.author = JSON.parse(this.responseText)['authors'];
                     } else if (this.status === 404) {
                         setErrorFunction("Tous les auteurs n'ont pas pu être chargés")
-                        console.log("Tous les auteurs n'ont pas pu être chargés");
+                    }
+                    if(number_of_challs == 0) {
+                        data_fetch_3_fn(challs)
                     }
                 });
                 xhr.open("GET", env.server_url + "api/v1/challenge/read.php?idChall=" + chall.idChall, false);
@@ -170,10 +179,14 @@ class Challenges extends Component {
             }
         }
 
-        data = JSON.stringify(false);
-        xhr = new XMLHttpRequest();
+    }
+
+    data_fetch_3 = (challs) => {
+        var data = JSON.stringify(false);
+        var xhr = new XMLHttpRequest();
         xhr.withCredentials = true;
         var val;
+        const postProcessing_fn = this.postProcessing
         xhr.addEventListener("readystatechange", function () {
             if (this.status === 200) {
                 if (this.responseText === "No validation found 404 for pseudo") {
@@ -181,8 +194,8 @@ class Challenges extends Component {
                 } else {
                     val = JSON.parse(this.responseText);
                     console.log(this.validations);
-
                 }
+                postProcessing_fn(val, challs)
             }
         });
         xhr.open("GET", env.server_url + "api/v1/challenge/read_validations.php", false);
@@ -197,6 +210,9 @@ class Challenges extends Component {
         catch (e) {
             this.setError("Erreur de connexion")
         }
+    }
+
+    postProcessing = (val, challs) => {
 
         this.validations = val.length === 0 ? [] : val.records;
 
@@ -225,8 +241,29 @@ class Challenges extends Component {
             this.levels[i].total = this.levels[i].total === 0 ? 1 : this.levels[i].total;
         }
 
+        this.setState({
+            loading: false
+        })
+    }
+
+    render() {
         // FIXME : Texte des difficultés "accessible, difficile etc" déborde sur 2 lignes quand on réduit la taille de la fenêtre
-        return (
+        if (this.state.loading === true) {
+            return (<Container><Loading></Loading>
+                <Modal show={this.state.showError} onHide={this.handleClose}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Erreur</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>{this.state.errorMessage}</Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="alert" onClick={this.handleClose}>
+                            Close
+                </Button>
+                    </Modal.Footer>
+                </Modal></Container>)
+        }
+        else {
+            return(
             <div className={`Challenges  ${styles.main_div}`}>
                 <ErrorMessage showError={this.state.showError} handleClose={this.handleClose} errorMessage={this.state.errorMessage}></ErrorMessage>
                 <Container>
@@ -300,7 +337,7 @@ class Challenges extends Component {
                 </Container>
             </div>
         );
-    }
+    }}
 }
 
 export default Challenges;
