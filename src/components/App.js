@@ -108,7 +108,7 @@ class App extends Component {
               <Switch>
                 <Route path="/" exact render={(props) => <Dashboard {...props} signOut={this.signout} />} />
                 <Route path="/challenges" exact render={this.ChallengePage} />}
-                    <Route path="/hall_fame" component={HallOfFame} />
+                <Route path="/hall_fame" component={HallOfFame} />
                 <Route path="/wiki" component={Wiki} />
                 <Route path="/hall_shame" component={HallOfShame} />
                 <Route path="/events" component={Events} />
