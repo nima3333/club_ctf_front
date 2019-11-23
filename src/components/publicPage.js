@@ -95,7 +95,6 @@ class Public extends React.Component {
         </Container>
         */}
 
-        {/* TODO : Comportement bizarre du header*/}
         <div className={styles.fheader}>
           <p className={`${styles.around_text} ${styles.text_left} ${styles.text_font_size}`}>Club</p>
           <img src={logo} className={styles.logo} alt="Logo"></img>
