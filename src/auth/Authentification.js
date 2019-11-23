@@ -87,7 +87,6 @@ function register(mail, password, confirmPassword, pseudo, phone, auth, setError
           xhr.setRequestHeader("Content-Type", "application/json");
           xhr.setRequestHeader("Authorization", "Basic Q1RGQVBJR0VORVJJQzpVYTIyTVR2UW9Xa0Vld1pXTTMyaERNOGVWRGZlUFI=");
           xhr.setRequestHeader("Accept", "*/*");
-          xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
           xhr.setRequestHeader("Cache-Control", "no-cache");
           xhr.setRequestHeader("cache-control", "no-cache");
           xhr.timeout = 2000;

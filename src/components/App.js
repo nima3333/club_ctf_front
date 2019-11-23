@@ -87,7 +87,13 @@ class App extends Component {
     }
   }
 
-  
+  DashboardPage = (props) => {
+    return (
+      <Dashboard 
+        chall={this.state.challenge}
+        {...props}
+      />
+    );}
 
   render() {
     if (this.state.isAuthenticated){
@@ -98,7 +104,7 @@ class App extends Component {
                 <SideNavBar changeChallenge={this.changeChallenge}/>
                 <div className={styles.scrollable_area} style={{height: `${this.state.height-64}px`}}>
                   <Switch>
-                    <Route path="/" exact component={Dashboard} />
+                    <Route path="/" exact render={(props) => <Dashboard {...props} signOut={this.signout} />}/>
                     <Route path="/challenges" exact render={this.ChallengePage}/>}
                     <Route path="/hall_fame" component={HallOfFame} />
                     <Route path="/wiki" component={Wiki} />

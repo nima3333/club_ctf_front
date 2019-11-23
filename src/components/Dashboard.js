@@ -10,7 +10,7 @@ var env = require('../misc/env.js');
 
 class Dashboard extends Component {
 
-    start_data_fetch1 = () => {
+    start_data_fetch1 = (dataFecth2, data_fetch3, postTreatment) => {
         // User info
         var data = JSON.stringify(false);
         var xhr = new XMLHttpRequest();
@@ -20,9 +20,9 @@ class Dashboard extends Component {
             if (this.readyState === 4) {
                 if (this.status === 200) {
                     var user = JSON.parse(this.responseText)['records'][0];
-                } else if (this.status === 404){
-                    // TODO : Afficher message d'erreur
-                    console.log("Impossible de charger les infos utilisateur, veuillez vous authentifier");          
+                    dataFecth2(user, data_fetch3, postTreatment);
+                } else if (xhr.status === 404){
+                    this.setError("Impossible de charger les infos utilisateur, veuillez vous authentifier");
                 }            
             }
         });
@@ -34,48 +34,57 @@ class Dashboard extends Component {
         xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
         xhr.setRequestHeader("Cache-Control", "no-cache");
         xhr.setRequestHeader("cache-control", "no-cache");
-        xhr.send(data);
+        try{
+            xhr.send(data);
+        }
+        catch(e){
+            this.setError("Erreur de connexion")
+        }
     }
 
-    data_fetch2 = () => {
-         // Nb validations
-        var data = JSON.stringify(false);
-        var xhr = new XMLHttpRequest();
-        xhr.withCredentials = true;
-        xhr.addEventListener("readystatechange", function () {
-            if (this.status === 200) {
-                if (this.responseText === "No validation found 404 for pseudo") {
-                    //var user.validations = [];
-                } else {
-                    //var user.validations = JSON.parse(this.responseText).records;
-                }            
-            }
-        });
-        xhr.open("GET", env.server_url + "api/v1/challenge/read_validations.php", false);
-        xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem('jwt'));
-        xhr.setRequestHeader("Accept", "*/*");
-        xhr.setRequestHeader("Cache-Control", "no-cache");
-        xhr.setRequestHeader("cache-control", "no-cache");
-        xhr.send(data);
+    data_fetch2 = (user, data_fetch3, postTreatment) => {
+        // Nb validations
+       var data = JSON.stringify(false);
+       var xhr = new XMLHttpRequest();
+       xhr.withCredentials = true;
+       xhr.addEventListener("readystatechange", function () {
+           if (this.status === 200) {
+               if (this.responseText === "No validation found 404 for pseudo") {
+                   user.validations = [];
+               } else {
+                   user.validations = JSON.parse(this.responseText).records;
+               } 
+               data_fetch3(user, postTreatment)           
+           }
+       });
+       xhr.open("GET", env.server_url + "api/v1/challenge/read_validations.php", false);
+       xhr.setRequestHeader("Content-Type", "application/json");
+       xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem('jwt'));
+       xhr.setRequestHeader("Accept", "*/*");
+       xhr.setRequestHeader("Cache-Control", "no-cache");
+       xhr.setRequestHeader("cache-control", "no-cache");
+       try{
+            xhr.send(data);
+        }
+        catch(e){
+            this.setError("Erreur de connexion")
+        }   
     }
 
-    data_fetch3 = () => {
+    data_fetch3 = (user, postTreatment) => {
+        console.dir("3")
         //challs
-        var challs;
         var data = null;
         var xhr = new XMLHttpRequest();
         xhr.withCredentials = true;
         xhr.addEventListener("readystatechange", function () {
             if (this.readyState === 4) {
                 if (this.status === 200) {
-                    challs = JSON.parse(this.responseText);
+                    var challs = JSON.parse(this.responseText);
+                    postTreatment(user, challs)
                 } else if (this.status === 404){
-                    // TODO : Afficher message d'erreur
-                    console.log("Erreur de chargement des challenges");
-                    
+                    this.setError("Erreur de chargement des challenges")                    
                 }
-                
             }
         });
         xhr.open("GET",  env.server_url + "/api/v1/challenge/read_all.php", false);
@@ -83,9 +92,73 @@ class Dashboard extends Component {
         xhr.setRequestHeader("Accept", "*/*");
         xhr.setRequestHeader("Cache-Control", "no-cache");
         xhr.setRequestHeader("cache-control", "no-cache");
-        xhr.send(data);
-
+        try{
+            xhr.send(data);
+        }
+        catch(e){
+            this.setError("Erreur de connexion")
+        }
     }
+
+    postTreatment = (user, challs) => {
+        console.dir("4")
+        this.categories = [
+            {name: "Dev",
+            total: 0,
+            value: 0},
+            {name: "Web",
+            total: 0,
+            value: 0},
+            {name: "Reverse",
+            total: 0,
+            value: 0},
+            {name: "Forensics",
+            total: 0,
+            value: 0},
+            {name: "Crypto",
+            total: 0,
+            value: 0},
+            {name: "Reseau",
+            total: 0,
+            value: 0}
+        ]
+        if (typeof challs === 'undefined'){}
+        else{
+        // Total number of challenges per category
+        this.categories[0].total =  challs.dev.length === 0 ? 1 : challs.dev.length;
+        this.categories[1].total =  challs.web.length === 0 ? 1 : challs.web.length;
+        this.categories[2].total =  challs.reverse.length === 0 ? 1 : challs.reverse.length;
+        this.categories[3].total =  challs.forensics.length === 0 ? 1 : challs.forensics.length;
+        this.categories[4].total =  challs.crypto.length === 0 ? 1 : challs.crypto.length;
+        this.categories[5].total =  challs.reseau.length === 0 ? 1 : challs.reseau.length;
+    
+    
+        // Nb of validations per category
+        for (let chall of user.validations) {
+            for (let i = 0; i < this.categories.length; i++) {
+                if (this.categories[i].name.toLocaleLowerCase() === chall.type) {
+                    this.categories[i].value++;
+                }            
+            }
+        }
+
+        this.setState({
+            pseudo: user.pseudo,
+            avatar: avatar,
+            points: user.score,
+            rank: user.rank,
+            total_memberf: 12000,
+            reussis: user.validations.length,
+            solutions: 0,
+            inventes: 0,
+            showError: false,
+            loading: false,
+        });
+
+        console.dir('4')
+        console.dir(this)
+    }
+}
 
   constructor(props) {
     super(props);
@@ -99,156 +172,50 @@ class Dashboard extends Component {
         showError: false,
         loading: true,
     };
-    // User info
-    var data = JSON.stringify(false);
-    var xhr = new XMLHttpRequest();
-    xhr.withCredentials = true;
-    xhr.addEventListener("readystatechange", function () {
-        if (this.readyState === 4) {
-            if (this.status === 200) {
-                user = JSON.parse(this.responseText)['records'][0];
-            } else if (this.status === 404){
-                // TODO : Afficher message d'erreur
-                console.log("Impossible de charger les infos utilisateur, veuillez vous authentifier");          
-            }            
-        }
-    });
-    xhr.open("GET", env.server_url + "api/v1/user/read_current.php", false);
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem('jwt'));
-    xhr.setRequestHeader("Accept", "*/*");
-    xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
-    xhr.setRequestHeader("Cache-Control", "no-cache");
-    xhr.setRequestHeader("cache-control", "no-cache");
-    xhr.setRequestHeader('Access-Control-Allow-Origin', '*')
-    xhr.send(data);
+    }
 
-    // Nb validations
-    data = JSON.stringify(false);
-    xhr = new XMLHttpRequest();
-    xhr.withCredentials = true;
-    xhr.addEventListener("readystatechange", function () {
-        if (this.status === 200) {
-            if (this.responseText === "No validation found 404 for pseudo") {
-                user.validations = [];
-            } else {
-                user.validations = JSON.parse(this.responseText).records;
-            }            
-        }
-    });
-    xhr.open("GET", env.server_url + "api/v1/challenge/read_validations.php", false);
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem('jwt'));
-    xhr.setRequestHeader("Accept", "*/*");
-    xhr.setRequestHeader("Cache-Control", "no-cache");
-    xhr.setRequestHeader("cache-control", "no-cache");
-    xhr.send(data);
+    componentDidMount(){
+        this.start_data_fetch1(this.data_fetch2, this.data_fetch3, this.postTreatment);
+    }
 
-    var challs;
-    data = null;
-    xhr = new XMLHttpRequest();
-    xhr.withCredentials = true;
-    xhr.addEventListener("readystatechange", function () {
-        if (this.readyState === 4) {
-            if (this.status === 200) {
-                challs = JSON.parse(this.responseText);
-            } else if (this.status === 404){
-                // TODO : Afficher message d'erreur
-                console.log("Erreur de chargement des challenges");
-                
-            }
-            
-        }
-    });
-    xhr.open("GET",  env.server_url + "/api/v1/challenge/read_all.php", false);
-    xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem('jwt'));
-    xhr.setRequestHeader("Accept", "*/*");
-    xhr.setRequestHeader("Cache-Control", "no-cache");
-    xhr.setRequestHeader("cache-control", "no-cache");
-    xhr.send(data);
-
-    this.categories = [
-        {name: "Dev",
-        total: 0,
-        value: 0},
-        {name: "Web",
-        total: 0,
-        value: 0},
-        {name: "Reverse",
-        total: 0,
-        value: 0},
-        {name: "Forensics",
-        total: 0,
-        value: 0},
-        {name: "Crypto",
-        total: 0,
-        value: 0},
-        {name: "Reseau",
-        total: 0,
-        value: 0}
-    ]
-    if (typeof challs === 'undefined'){}
-    else{
-    // Total number of challenges per category
-    this.categories[0].total =  challs.dev.length === 0 ? 1 : challs.dev.length;
-    this.categories[1].total =  challs.web.length === 0 ? 1 : challs.web.length;
-    this.categories[2].total =  challs.reverse.length === 0 ? 1 : challs.reverse.length;
-    this.categories[3].total =  challs.forensics.length === 0 ? 1 : challs.forensics.length;
-    this.categories[4].total =  challs.crypto.length === 0 ? 1 : challs.crypto.length;
-    this.categories[5].total =  challs.reseau.length === 0 ? 1 : challs.reseau.length;
-
-
-    // Nb of validations per category
-    for (let chall of user.validations) {
-        for (let i = 0; i < this.categories.length; i++) {
-            if (this.categories[i].name.toLocaleLowerCase() === chall.type) {
-                this.categories[i].value++;
-            }            
+    get_color_stat(x) {
+        if (x < 25) {
+            return 'danger';
+        } else if (x < 65) {
+            return 'warning';
+        } else {
+            return 'success';
         }
     }
-    console.log(challs);
-    
-    this.state = {
-        pseudo: user.pseudo,
-        avatar: avatar,
-        points: user.score,
-        rank: user.rank,
-        total_memberf: 12000,
-        reussis: user.validations.length,
-        solutions: 0,
-        inventes: 0,
-        showError: false,
-        loading: false,
-    };
-  }
-}
 
-  get_color_stat(x) {
-    if (x < 25) {
-        return 'danger';
-    } else if (x < 65) {
-        return 'warning';
-    } else {
-        return 'success';
+    setError = (message) => {
+        this.setState({
+            showError: true,
+            errorMessage: message,
+        })
     }
-  }
 
-  setError = (message) => {
-      this.setState({
-        showError: true
-      })
-  }
-
-  handleClose = (message) => {
-      //TODO: retour à l'id
-    this.setState({
-      showError: false
-    })
+    handleClose = (message) => {
+        this.setState({
+            showError: false
+        })
+        this.props.signOut()
     }
 
   render() {
     if(this.state.loading === true){
-        return(<Loading></Loading>)
+        return(<Container><Loading></Loading>
+            <Modal show={this.state.showError} onHide={this.handleClose}>
+                <Modal.Header closeButton>
+                <Modal.Title>Erreur</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>{this.state.errorMessage}</Modal.Body>
+                <Modal.Footer>
+                <Button variant="alert" onClick={this.handleClose}>
+                    Close
+                </Button>
+                </Modal.Footer>
+            </Modal></Container>)
     }
     else {
     return (
@@ -257,15 +224,12 @@ class Dashboard extends Component {
             {/* Erreur */}
             <Modal show={this.state.showError} onHide={this.handleClose}>
                 <Modal.Header closeButton>
-                <Modal.Title>Modal heading</Modal.Title>
+                <Modal.Title>Erreur</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+                <Modal.Body>{this.state.errorMessage}</Modal.Body>
                 <Modal.Footer>
-                <Button variant="secondary" onClick={this.handleClose}>
+                <Button variant="alert" onClick={this.handleClose}>
                     Close
-                </Button>
-                <Button variant="primary" onClick={this.handleClose}>
-                    Save Changes
                 </Button>
                 </Modal.Footer>
             </Modal>
