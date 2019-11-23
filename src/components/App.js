@@ -1,7 +1,7 @@
 import styles from './App.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import React, {Component, Suspense} from 'react';
-import {Route, Switch} from 'react-router-dom';
+import React, { Component, Suspense } from 'react';
+import { Route, Switch } from 'react-router-dom';
 import Dashboard from "./Dashboard"
 import Challenges from './Challenges'
 import SideNavBar from './SideNavBar'
@@ -9,10 +9,10 @@ import HallOfFame from "./HallOfFame"
 import HallOfShame from "./HallOfShame"
 import Events from "./Events"
 import Wiki from "./Wiki"
-import Public from'./publicPage'
-import TopNavBar from'./TopNavBar'
+import Public from './publicPage'
+import TopNavBar from './TopNavBar'
 import ChallPage from './ChallPage'
-import {withRouter} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 class App extends Component {
 
@@ -26,20 +26,20 @@ class App extends Component {
     };
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
   }
-  
+
   componentDidMount() {
     this.updateWindowDimensions();
     window.addEventListener('resize', this.updateWindowDimensions);
   }
-  
+
   componentWillUnmount() {
     window.removeEventListener('resize', this.updateWindowDimensions);
   }
-  
+
   updateWindowDimensions() {
     this.setState({ width: window.innerWidth, height: window.innerHeight });
-  }  
-  
+  }
+
   state = {
     isAuthenticated: true,
     challenge: false,
@@ -56,7 +56,7 @@ class App extends Component {
     //setTimeout(cb, 100)
   }
 
-  signout= () => {
+  signout = () => {
     this.setState({
       isAuthenticated: false
     })
@@ -65,65 +65,68 @@ class App extends Component {
     //setTimeout(cb, 100)
   }
 
-  changeChallenge= (chall) => {
+  changeChallenge = (chall) => {
     this.setState({
-      challenge : chall
+      challenge: chall
     })
     //console.dir(this.state.challenge)
   }
 
   ChallengePage = (props) => {
-    if(this.state.challenge !== false){
-    return (
-      <Challenges 
-        chall={this.state.challenge}
-        {...props}
-      />
-    );}
-    else{
-      return(
-        <Dashboard/>
+    if (this.state.challenge !== false) {
+      return (
+        <Challenges
+          chall={this.state.challenge}
+          {...props}
+        />
+      );
+    }
+    else {
+      return (
+        <Dashboard />
       )
     }
   }
 
   DashboardPage = (props) => {
     return (
-      <Dashboard 
+      <Dashboard
         chall={this.state.challenge}
         {...props}
       />
-    );}
+    );
+  }
 
   render() {
-    if (this.state.isAuthenticated){
+    if (this.state.isAuthenticated) {
       return (
-          <div className={`App ${styles.aaa}`}>
-            <TopNavBar signOut={this.signout}/>
-            <div className={styles.box}>
-                <SideNavBar changeChallenge={this.changeChallenge}/>
-                <div className={styles.scrollable_area} style={{height: `${this.state.height-64}px`}}>
-                  <Switch>
-                    <Route path="/" exact render={(props) => <Dashboard {...props} signOut={this.signout} />}/>
-                    <Route path="/challenges" exact render={this.ChallengePage}/>}
+        <div className={`App ${styles.aaa}`}>
+          <TopNavBar signOut={this.signout} />
+          <div className={styles.box}>
+            <SideNavBar changeChallenge={this.changeChallenge} />
+            <div className={styles.scrollable_area} style={{ height: `${this.state.height - 64}px` }}>
+              <Switch>
+                <Route path="/" exact render={(props) => <Dashboard {...props} signOut={this.signout} />} />
+                <Route path="/challenges" exact render={this.ChallengePage} />}
                     <Route path="/hall_fame" component={HallOfFame} />
-                    <Route path="/wiki" component={Wiki} />
-                    <Route path="/hall_shame" component={HallOfShame} />
-                    <Route path="/events" component={Events} />
-                    <Route path="/challenges/:id(\d+)" component={ChallPage} />
-                  </Switch>
-                </div>
+                <Route path="/wiki" component={Wiki} />
+                <Route path="/hall_shame" component={HallOfShame} />
+                <Route path="/events" component={Events} />
+                <Route path="/challenges/:id(\d+)" component={ChallPage} />
+              </Switch>
             </div>
           </div>
-      )}
-    else{
+        </div>
+      )
+    }
+    else {
       //if the url is ./ , change it
-      if(this.props.location.pathname !== "/"){
+      if (this.props.location.pathname !== "/") {
         this.props.history.push('/')
       }
-      return(
+      return (
         <Suspense fallback={<div>Chargement...</div>}>
-          <Public authenticate = {this.authenticate}/>
+          <Public authenticate={this.authenticate} />
         </Suspense>
       )
     }
