@@ -8,6 +8,7 @@ import terminal from '../icons/003-terminal-windows.png'
 import loupe from '../icons/004-search.png'
 import key from '../icons/005-key.png'
 import ethernet from '../icons/006-ethernet.png'
+import cog from '../icons/006-settings.png'
 import {withRouter} from 'react-router-dom';
 
 const navbar = {backgroundColor: '#1D252B'};
@@ -33,6 +34,10 @@ const items = [
   {
     link:"Reseau",
     image:ethernet
+  },
+  {
+    link:"Reverse",
+    image:cog
   }
 ]
 
