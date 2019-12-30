@@ -16,13 +16,8 @@ class mainPageTest(unittest.TestCase):
         main_page = mainPage.MainPage(self.driver)
         # Checks if "Club CTF" is in title
         assert main_page.is_title_matches(), "Club CTF title doesn't match."
-        #Sets the text of search textbox to "pycon"
-        #main_page.search_text_element = "pycon"
-        #main_page.click_go_button()
-        #search_results_page = mainPage.SearchResultsPage(self.driver)
-        #Verifies that the results page is not empty
-        #assert search_results_page.is_results_found(), "No results found."
-        #main_page.login("ok", "ok")
+        main_page.click_login_button()
+        main_page.login("ok", "ok")
 
     def tearDown(self):
         self.driver.close()

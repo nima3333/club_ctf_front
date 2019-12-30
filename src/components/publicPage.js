@@ -107,8 +107,9 @@ class Public extends React.Component {
             */}
           </Nav>
           <Nav>
-            <Nav.Link style={{color: "white"}} onClick={this.showLogin}>Se connecter</Nav.Link>
-            <Nav.Link style={{color: "white"}} onClick={this.showRegister}>S'inscrire</Nav.Link>
+            {/* FIXME : Les id n'apparaissent pas une fois la page interprétée par le navigateur*/}
+            <Nav.Link id={"login"} style={{color: "white"}} onClick={this.showLogin}>Se connecter</Nav.Link>
+            <Nav.Link id={"register"} style={{color: "white"}} onClick={this.showRegister}>S'inscrire</Nav.Link>
           </Nav>
         </Navbar>
         <div className={styles.center_div}>

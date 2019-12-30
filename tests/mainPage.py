@@ -19,8 +19,7 @@ class MainPage(BasePage):
         return "Club CTF" in self.driver.title
     
     def is_error_mess_matches(self, message):
-        # TODO
-
+        return message in self.driver.find_element(*MainPageLocators.ERROR_MESS).text
 
     # Clicks
 
@@ -31,12 +30,27 @@ class MainPage(BasePage):
     def click_register_button(self):
         element = self.driver.find_element(*MainPageLocators.REGISTER_BUTTON)
         element.click()
+        
 
     # Forms
 
     def login(self, username, password):
-        # TODO
+        pseudo_field = self.driver.find_element(*MainPageLocators.USERNAME)
+        password_field = self.driver.find_element(*MainPageLocators.PASSWORD)
+        set(pseudo_field, username)
+        set(password_field, password)
+        return
 
     def register(self, mail, username, password, password_conf, phone):
-        # TODO
+        email_field = self.driver.find_element(*MainPageLocators.EMAIL)
+        pseudo_field = self.driver.find_element(*MainPageLocators.USERNAME)
+        password_field = self.driver.find_element(*MainPageLocators.PASSWORD)
+        confirm_password_field = self.driver.find_element(*MainPageLocators.CONFIRM_PASSWORD)
+        phone_field = self.driver.find_element(*MainPageLocators.PHONE)
+        set(email_field, username)
+        set(pseudo_field, password)
+        set(password_field, username)
+        set(confirm_password_field, password)
+        set(phone_field, username)
+        return
     
